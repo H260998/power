@@ -57,16 +57,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
 
-        // Temporary authenticated branding update; removed after production is updated.
-        Route::post('branding/initialize', function () {
-            Illuminate\Support\Facades\Artisan::call('db:seed', [
-                '--class' => Database\Seeders\BrandingSeeder::class,
-                '--force' => true,
-            ]);
-
-            return response()->json([
-                'store_name' => App\Models\Setting::where('key', 'store_name')->value('value'),
-            ]);
-        })->name('branding.initialize');
     });
 });
