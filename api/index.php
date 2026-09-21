@@ -36,28 +36,36 @@ if (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) === '/_deploy/initia
         exit;
     }
 
-    require __DIR__.'/../vendor/autoload.php';
+    try {
+        require __DIR__.'/../vendor/autoload.php';
 
-    $app = require __DIR__.'/../bootstrap/app.php';
-    $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
-    $kernel->bootstrap();
+        $app = require __DIR__.'/../bootstrap/app.php';
+        $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+        $kernel->bootstrap();
 
-    $commands = [
-        ['migrate', ['--force' => true]],
-        ['db:seed', ['--class' => 'Database\\Seeders\\CategorySeeder', '--force' => true]],
-        ['db:seed', ['--class' => 'Database\\Seeders\\SettingSeeder', '--force' => true]],
-        ['db:seed', ['--class' => 'Database\\Seeders\\AdminSeeder', '--force' => true]],
-    ];
+        $commands = [
+            ['migrate', ['--force' => true]],
+            ['db:seed', ['--class' => 'Database\\Seeders\\CategorySeeder', '--force' => true]],
+            ['db:seed', ['--class' => 'Database\\Seeders\\SettingSeeder', '--force' => true]],
+            ['db:seed', ['--class' => 'Database\\Seeders\\AdminSeeder', '--force' => true]],
+        ];
 
-    $results = [];
-    foreach ($commands as [$command, $arguments]) {
-        $status = Illuminate\Support\Facades\Artisan::call($command, $arguments);
-        $results[$command.($arguments['--class'] ?? '')] = $status;
+        $results = [];
+        foreach ($commands as [$command, $arguments]) {
+            $status = Illuminate\Support\Facades\Artisan::call($command, $arguments);
+            $results[$command.($arguments['--class'] ?? '')] = $status;
 
-        if ($status !== 0) {
-            http_response_code(500);
-            break;
+            if ($status !== 0) {
+                http_response_code(500);
+                break;
+            }
         }
+    } catch (Throwable $exception) {
+        $message = preg_replace('/\s+/', ' ', $exception->getMessage()) ?? $exception->getMessage();
+        $message = preg_replace('#(postgres(?:ql)?://[^:]+:)[^@]+@#i', '$1[redacted]@', $message) ?? $message;
+        $results = ['error' => $exception::class, 'message' => substr($message, 0, 1000)];
+        error_log('Database initialization failed: '.json_encode($results));
+        http_response_code(500);
     }
 
     header('Content-Type: application/json');
