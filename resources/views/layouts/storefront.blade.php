@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? config('app.name') }} — {{ __('storefront.tagline') }}</title>
+    <title>{{ $title ?? config('brand.name') }} — {{ __('storefront.tagline') }}</title>
+    <link rel="icon" type="image/webp" href="{{ asset(config('brand.logo')) }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +36,10 @@
 
 <header class="sticky top-0 z-50 bg-white border-b border-black/[0.06]">
     <div class="flex items-center justify-between h-[88px] px-6 lg:px-16">
-        <a href="{{ route('home') }}" class="text-[23px] font-extrabold tracking-wide">POWER<span class="text-gold">.</span></a>
+        <a href="{{ route('home') }}" class="flex items-center gap-2.5" aria-label="{{ config('brand.name') }}">
+            <img src="{{ asset(config('brand.logo')) }}" alt="{{ config('brand.name') }}" class="h-11 w-auto object-contain">
+            <span class="hidden sm:inline text-[18px] font-extrabold tracking-wide">{{ config('brand.name') }}</span>
+        </a>
 
         <nav class="hidden md:flex items-center gap-5 lg:gap-10">
             <a href="{{ route('home') }}" class="text-[15px] font-semibold hover:text-gold">{{ __('storefront.nav_home') }}</a>
@@ -86,7 +90,10 @@
 <footer class="bg-ink text-white px-6 md:px-16 pt-16 pb-8">
     <div class="flex flex-wrap justify-between gap-10 mb-12">
         <div class="max-w-[220px]">
-            <div class="text-xl font-extrabold mb-3">POWER<span class="text-gold">.</span></div>
+            <div class="flex items-center gap-3 mb-3">
+                <img src="{{ asset(config('brand.logo')) }}" alt="{{ config('brand.name') }}" class="h-14 w-auto object-contain brightness-0 invert">
+                <span class="text-lg font-extrabold">{{ config('brand.name') }}</span>
+            </div>
             <div class="text-gray-400 text-[13.5px] leading-relaxed">{{ __('storefront.footer_tagline') }}</div>
         </div>
         <div>
@@ -126,7 +133,7 @@
         </div>
     </div>
     <div class="border-t border-white/10 pt-6 flex flex-wrap justify-between gap-3 text-gray-400 text-[12.5px]">
-        <span>&copy; {{ date('Y') }} POWER. {{ __('storefront.footer_rights') }}</span>
+        <span>&copy; {{ date('Y') }} {{ config('brand.name') }}. {{ __('storefront.footer_rights') }}</span>
         <div class="flex gap-5">
             <span>{{ __('storefront.footer_privacy') }}</span>
             <span>{{ __('storefront.footer_terms') }}</span>

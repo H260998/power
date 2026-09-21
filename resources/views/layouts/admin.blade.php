@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? __('admin.dashboard') }} — POWER Admin</title>
+    <title>{{ $title ?? __('admin.dashboard') }} — {{ config('brand.name') }} Admin</title>
+    <link rel="icon" type="image/webp" href="{{ asset(config('brand.logo')) }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,13 +32,19 @@
 @endphp
 
 <div class="flex items-center justify-between bg-ink text-white px-5 py-4 md:hidden">
-    <a href="{{ route('admin.dashboard') }}" class="text-[19px] font-extrabold tracking-wide">POWER<span class="text-gold">.</span></a>
+    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2">
+        <img src="{{ asset(config('brand.logo')) }}" alt="{{ config('brand.name') }}" class="h-10 w-auto object-contain brightness-0 invert">
+        <span class="text-[17px] font-extrabold">{{ config('brand.name') }}</span>
+    </a>
     <button type="button" data-admin-nav-toggle class="text-sm font-bold cursor-pointer">☰ {{ __('admin.menu') }}</button>
 </div>
 
 <div class="flex flex-col md:flex-row min-h-screen">
     <aside data-admin-sidebar class="hidden md:flex w-full md:w-[260px] md:shrink-0 bg-ink text-white p-6 md:p-8 md:pt-8 flex-col gap-1">
-        <a href="{{ route('admin.dashboard') }}" class="hidden md:block text-[22px] font-extrabold tracking-wide mb-9 pl-2">POWER<span class="text-gold">.</span></a>
+        <a href="{{ route('admin.dashboard') }}" class="hidden md:flex items-center gap-2.5 mb-9 pl-2">
+            <img src="{{ asset(config('brand.logo')) }}" alt="{{ config('brand.name') }}" class="h-12 w-auto object-contain brightness-0 invert">
+            <span class="text-[17px] font-extrabold">{{ config('brand.name') }}</span>
+        </a>
 
         @foreach ($navItems as $item)
             @if (\Illuminate\Support\Facades\Route::has(str_replace('.*', '.index', $item['routeName'])) || \Illuminate\Support\Facades\Route::has($item['routeName']))

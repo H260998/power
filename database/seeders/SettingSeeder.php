@@ -13,7 +13,7 @@ class SettingSeeder extends Seeder
     private function defaults(): array
     {
         return [
-            'store_name' => 'POWER',
+            'store_name' => 'ALO E-SHOP',
             'store_email' => 'contact@power-store.tn',
             'store_phone' => '+216 20 000 000',
             'shipping_fee' => '7.990',
@@ -30,9 +30,9 @@ class SettingSeeder extends Seeder
 
             'about_title' => ['fr' => 'Notre Histoire', 'en' => 'Our Story', 'ar' => 'قصتنا'],
             'about_text' => [
-                'fr' => "POWER est plus qu'une marque — c'est un état d'esprit. Nous créons des pièces pour ceux qui avancent avec détermination, s'habillent avec confiance et ne se fondent jamais dans la masse.",
-                'en' => "POWER is more than a brand — it's a mindset. We craft pieces for those who move with purpose, dress with confidence, and never blend in.",
-                'ar' => 'POWER أكثر من مجرد علامة تجارية — إنها عقلية. نصمم قطعًا لمن يتحركون بهدف، ويرتدون بثقة، ولا يذوبون في الحشد أبدًا.',
+                'fr' => "ALO E-SHOP est plus qu'une boutique — c'est un univers de style. Nous sélectionnons des pièces pour celles et ceux qui avancent avec confiance et affirment leur personnalité.",
+                'en' => 'ALO E-SHOP is more than a store — it is a world of style. We select pieces for people who move with confidence and express their personality.',
+                'ar' => 'ALO E-SHOP أكثر من مجرد متجر — إنه عالم من الأناقة. نختار قطعًا لمن يتقدمون بثقة ويعبّرون عن شخصيتهم.',
             ],
 
             'feature1_title' => ['fr' => 'Qualité Premium', 'en' => 'Premium Quality', 'ar' => 'جودة فاخرة'],
@@ -42,7 +42,7 @@ class SettingSeeder extends Seeder
             'feature3_title' => ['fr' => 'Conçu Pour Durer', 'en' => 'Built To Last', 'ar' => 'مصمم ليدوم'],
             'feature3_text' => ['fr' => 'Des tissus durables qui tiennent la distance.', 'en' => 'Durable fabrics that go the distance.', 'ar' => 'أقمشة متينة تدوم طويلاً.'],
 
-            'newsletter_title' => ['fr' => 'Rejoignez Le POWER Club', 'en' => 'Join The POWER Club', 'ar' => 'انضم إلى نادي POWER'],
+            'newsletter_title' => ['fr' => 'Rejoignez Le Club ALO', 'en' => 'Join The ALO Club', 'ar' => 'انضم إلى نادي ALO'],
             'newsletter_text' => [
                 'fr' => 'Soyez informé en premier des nouveautés et offres exclusives.',
                 'en' => 'Be first to know about new drops and exclusive offers.',

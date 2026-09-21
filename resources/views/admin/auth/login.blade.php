@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ __('admin.login') }} — POWER Admin</title>
+    <title>{{ __('admin.login') }} — {{ config('brand.name') }} Admin</title>
+    <link rel="icon" type="image/webp" href="{{ asset(config('brand.logo')) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -12,7 +13,10 @@
 
 <div class="w-full max-w-[400px]">
     <div class="text-center mb-8">
-        <a href="{{ route('home') }}" class="text-[26px] font-extrabold tracking-wide">POWER<span class="text-gold">.</span></a>
+        <a href="{{ route('home') }}" class="inline-flex flex-col items-center gap-2">
+            <img src="{{ asset(config('brand.logo')) }}" alt="{{ config('brand.name') }}" class="h-24 w-auto object-contain">
+            <span class="text-[22px] font-extrabold tracking-wide">{{ config('brand.name') }}</span>
+        </a>
         <div class="text-muted text-sm mt-2">{{ __('admin.login_subtitle') }}</div>
     </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ __('admin.delivery_note') }} - {{ $order->order_number }} - POWER</title>
+    <title>{{ __('admin.delivery_note') }} - {{ $order->order_number }} - {{ config('brand.name') }}</title>
     <style>
         @page { size: A4; margin: 15mm; }
         * { box-sizing: border-box; }
@@ -13,7 +13,8 @@
         .toolbar button { border: 0; border-radius: 8px; padding: 12px 20px; color: white; background: #111; font: inherit; font-weight: 700; cursor: pointer; }
         .sheet { width: 100%; max-width: 210mm; margin: 0 auto 30px; padding: 15mm; background: white; }
         .heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 20px; border-bottom: 2px solid #111; }
-        .brand { font-size: 25px; font-weight: 800; }
+        .brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 800; }
+        .brand img { width: auto; height: 52px; object-fit: contain; }
         h1 { font-size: 23px; margin: 0 0 6px; }
         h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 12px; }
         p { margin: 4px 0; overflow-wrap: anywhere; }
@@ -62,7 +63,10 @@
     <main class="sheet">
         <header class="heading">
             <div>
-                <div class="brand"><bdi>POWER.</bdi></div>
+                <div class="brand">
+                    <img src="{{ asset(config('brand.logo')) }}" alt="{{ config('brand.name') }}">
+                    <bdi>{{ config('brand.name') }}</bdi>
+                </div>
                 <h1>{{ __('admin.delivery_note') }}</h1>
             </div>
             <div class="reference">
