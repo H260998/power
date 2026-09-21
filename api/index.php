@@ -25,4 +25,19 @@ foreach ($defaults as $name => $value) {
     }
 }
 
-require __DIR__.'/../public/index.php';
+try {
+    require __DIR__.'/../public/index.php';
+} catch (Throwable $exception) {
+    // Keep the final diagnostic short: Vercel truncates long exception traces.
+    error_log(sprintf(
+        'Laravel startup failed: %s: %s in %s:%d',
+        $exception::class,
+        $exception->getMessage(),
+        $exception->getFile(),
+        $exception->getLine(),
+    ));
+
+    http_response_code(500);
+    header('Content-Type: text/plain; charset=UTF-8');
+    echo 'Internal Server Error';
+}
