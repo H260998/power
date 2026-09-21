@@ -57,5 +57,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
 
+        // Temporary authenticated catalog import; removed after the production seed succeeds.
+        Route::post('catalog/initialize', function () {
+            Illuminate\Support\Facades\Artisan::call('db:seed', [
+                '--class' => Database\Seeders\ProductSeeder::class,
+                '--force' => true,
+            ]);
+
+            return response()->json([
+                'products' => App\Models\Product::count(),
+                'images' => App\Models\ProductImage::count(),
+                'variants' => App\Models\ProductVariant::count(),
+            ]);
+        })->name('catalog.initialize');
     });
 });
