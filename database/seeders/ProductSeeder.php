@@ -4,123 +4,145 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Services\ImageUploadService;
 use App\Services\StockService;
 use Illuminate\Database\Seeder;
-use Illuminate\Http\UploadedFile;
 
 class ProductSeeder extends Seeder
 {
     /**
-     * Demo catalog seeded from the design prototype's own product photography
-     * (assets/product-*.png), carried over onto the real category tree.
+     * The production catalog. Product images are committed under
+     * public/uploads/products so they remain available on Vercel.
      */
     private function catalog(): array
     {
         return [
             [
+                'slug' => 'short-jean-delave-gris',
+                'category' => 'jeans',
+                'image' => 'products/short-jean-delave.webp',
+                'price' => 59.900,
+                'compare_at_price' => 69.900,
+                'name' => ['fr' => 'Short en Jean Délavé Gris', 'en' => 'Grey Washed Denim Shorts', 'ar' => 'شورت جينز رمادي مغسول'],
+                'description' => [
+                    'fr' => 'Short en denim gris délavé avec détails usés et coupe droite confortable. Une pièce streetwear facile à porter au quotidien.',
+                    'en' => 'Grey washed denim shorts with distressed details and a comfortable straight fit. An easy everyday streetwear piece.',
+                    'ar' => 'شورت جينز رمادي مغسول بتفاصيل ممزقة وقصة مستقيمة مريحة، مناسب للإطلالات اليومية.',
+                ],
+                'sizes' => ['28', '30', '32', '34', '36'],
+                'colors' => [['Gris Délavé', '#4B5563']],
+                'featured' => true,
+                'podium' => false,
+            ],
+            [
                 'slug' => 'classic-snapback-cap',
                 'category' => 'caps-hats',
-                'source' => 'product-cap.webp',
+                'image' => 'products/casquette-ny-noire.webp',
                 'price' => 39.900,
-                'name' => ['fr' => 'Casquette Snapback Classique', 'en' => 'Classic Snapback Cap', 'ar' => 'قبعة سناباك كلاسيكية'],
+                'compare_at_price' => null,
+                'name' => ['fr' => 'Casquette NY Noire', 'en' => 'Black NY Cap', 'ar' => 'قبعة نيويورك سوداء'],
                 'description' => [
-                    'fr' => "Une casquette snapback nette et structurée, finie avec un logo brodé audacieux. Sangle ajustable pour un maintien parfait.",
-                    'en' => 'A sharp, structured snapback finished with a bold embroidered logo. Adjustable strap for a locked-in fit.',
-                    'ar' => 'قبعة سناباك أنيقة ومهيكلة بشعار مطرز بارز. حزام قابل للتعديل لملاءمة مثالية.',
+                    'fr' => 'Casquette noire structurée avec logo NY blanc brodé et sangle réglable pour un ajustement confortable.',
+                    'en' => 'Structured black cap with an embroidered white NY logo and an adjustable strap for a comfortable fit.',
+                    'ar' => 'قبعة سوداء مهيكلة بشعار نيويورك أبيض مطرز وحزام قابل للتعديل.',
                 ],
-                'sizes' => ['One Size'],
-                'colors' => [['Noir', '#111111'], ['Bleu Marine', '#1E293B']],
+                'sizes' => ['Taille unique'],
+                'colors' => [['Noir', '#111111']],
                 'featured' => true,
+                'podium' => false,
             ],
             [
                 'slug' => 'oversized-graphic-tee',
                 'category' => 'printed',
-                'source' => 'product-tee.png',
+                'image' => 'products/tshirt-magic-noir.webp',
                 'price' => 44.900,
-                'name' => ['fr' => 'T-shirt Graphique Oversize "Magic"', 'en' => '"Magic" Oversized Graphic Tee', 'ar' => 'تيشيرت أوفرسايز مطبوع "Magic"'],
+                'compare_at_price' => 54.900,
+                'name' => ['fr' => 'T-shirt Oversize Magic', 'en' => 'Magic Oversized T-shirt', 'ar' => 'تيشيرت ماجيك أوفرسايز'],
                 'description' => [
-                    'fr' => "T-shirt oversize en coton épais avec un imprimé graphique dessiné à la main sur toute la surface. Un essentiel streetwear, pensé pour votre force au quotidien.",
-                    'en' => 'Heavyweight cotton oversized tee with an all-over hand-drawn graphic print. Streetwear essential, built for everyday power.',
-                    'ar' => 'تيشيرت أوفرسايز من القطن الثقيل بطبعة رسومية مرسومة يدويًا. أساسي ستريتوير لقوتك اليومية.',
+                    'fr' => 'T-shirt oversize noir en coton avec grand imprimé graphique coloré au dos. Coupe ample et esprit streetwear.',
+                    'en' => 'Black oversized cotton T-shirt with a large colorful back graphic. Relaxed fit with a streetwear attitude.',
+                    'ar' => 'تيشيرت قطني أسود أوفرسايز بطبعة خلفية كبيرة وملونة وقصة مريحة.',
                 ],
                 'sizes' => ['S', 'M', 'L', 'XL', 'XXL'],
-                'colors' => [['Noir', '#111111'], ['Blanc', '#F5F5F4']],
+                'colors' => [['Noir', '#111111']],
                 'featured' => true,
+                'podium' => true,
             ],
             [
                 'slug' => 'uptempo-retro-sneaker',
                 'category' => 'sneakers',
-                'source' => 'product-sneaker.png',
+                'image' => 'products/sneaker-uptempo-rouge.webp',
                 'price' => 189.900,
-                'name' => ['fr' => 'Sneaker Rétro Uptempo', 'en' => 'Uptempo Retro Sneaker', 'ar' => 'حذاء سنيكرز ريترو أوبتيمبو'],
+                'compare_at_price' => 219.900,
+                'name' => ['fr' => 'Sneaker Uptempo Rouge', 'en' => 'Red Uptempo Sneaker', 'ar' => 'حذاء أوبتيمبو أحمر'],
                 'description' => [
-                    'fr' => "Sneaker de basketball rétro montante avec un branding contrasté audacieux et une semelle à air amortie pour un confort toute la journée.",
-                    'en' => 'High-top retro basketball sneaker with bold blocked branding and a cushioned air sole for all-day comfort.',
-                    'ar' => 'حذاء كرة سلة ريترو عالي الرقبة بعلامة تجارية جريئة ونعل هوائي مبطن لراحة طوال اليوم.',
+                    'fr' => 'Sneaker montante rouge, noire et blanche au style basketball rétro, avec semelle amortissante pour un confort durable.',
+                    'en' => 'Red, black and white high-top sneaker with retro basketball styling and a cushioned sole for lasting comfort.',
+                    'ar' => 'حذاء رياضي مرتفع بالأحمر والأسود والأبيض بتصميم كرة سلة كلاسيكي ونعل مريح.',
                 ],
                 'sizes' => ['40', '41', '42', '43', '44', '45'],
-                'colors' => [['Blanc', '#F5F5F4'], ['Noir', '#111111']],
+                'colors' => [['Rouge & Noir', '#DC2626']],
                 'featured' => true,
+                'podium' => true,
             ],
             [
-                'slug' => 'varsity-letterman-jacket',
+                'slug' => 'veste-teddy-noire-blanche-boston',
                 'category' => 'jackets',
-                'source' => 'product-jacket.png',
+                'image' => 'products/veste-varsity-boston.webp',
                 'price' => 129.900,
-                'name' => ['fr' => 'Veste Varsity Teddy', 'en' => 'Varsity Letterman Jacket', 'ar' => 'جاكيت فارسيتي'],
+                'compare_at_price' => 149.900,
+                'name' => ['fr' => 'Veste Teddy Boston', 'en' => 'Boston Varsity Jacket', 'ar' => 'جاكيت بوسطن فارسيتي'],
                 'description' => [
-                    'fr' => "Veste varsity bicolore classique avec col, poignets et ourlet côtelés, et un patch chenille sur la poitrine. Une pièce qui affirme votre style.",
-                    'en' => 'Classic two-tone varsity jacket with ribbed collar, cuffs and hem, and a chenille chest patch. A statement layer.',
-                    'ar' => 'جاكيت فارسيتي كلاسيكي بلونين مع ياقة وأكمام مضلعة ورقعة صدر مخملية. قطعة تعبّر عن أسلوبك.',
+                    'fr' => 'Veste varsity noire et blanche avec écussons Boston, finitions côtelées et fermeture à boutons pression.',
+                    'en' => 'Black and white varsity jacket with Boston patches, ribbed trims and snap-button fastening.',
+                    'ar' => 'جاكيت فارسيتي بالأسود والأبيض مع شارات بوسطن وحواف مضلعة وأزرار كبس.',
                 ],
                 'sizes' => ['S', 'M', 'L', 'XL'],
-                'colors' => [['Noir & Crème', '#111111']],
+                'colors' => [['Noir & Blanc', '#111111']],
                 'featured' => true,
+                'podium' => true,
             ],
             [
-                'slug' => 'essential-sweatshorts',
+                'slug' => 'essential-blue-sweatshorts',
                 'category' => 'sportswear',
-                'source' => 'product-shorts.png',
+                'image' => 'products/short-molleton-bleu.webp',
                 'price' => 49.900,
-                'name' => ['fr' => 'Short Molleton Essentiel', 'en' => 'Essential Sweatshorts', 'ar' => 'شورت رياضي أساسي'],
+                'compare_at_price' => null,
+                'name' => ['fr' => 'Short Molleton Bleu Power', 'en' => 'Power Blue Sweatshorts', 'ar' => 'شورت باور أزرق'],
                 'description' => [
-                    'fr' => "Short en molleton doux avec taille élastique à cordon et poches latérales. Coupe confort pour l'entraînement ou la détente.",
-                    'en' => 'Soft fleece sweatshorts with an elastic drawstring waist and side pockets. Comfort-fit for training or lounging.',
-                    'ar' => 'شورت من الصوف الناعم بخصر مطاطي برباط وجيوب جانبية. مقاس مريح للتمرين أو الاسترخاء.',
+                    'fr' => 'Short bleu en molleton doux avec taille élastique, cordon de serrage et étiquette Power. Confortable pour le sport et la détente.',
+                    'en' => 'Soft blue sweatshorts with an elastic waist, drawstring and Power label. Comfortable for training and downtime.',
+                    'ar' => 'شورت أزرق ناعم بخصر مطاطي ورباط وشعار باور، مناسب للرياضة والراحة.',
                 ],
                 'sizes' => ['S', 'M', 'L', 'XL'],
-                'colors' => [['Gris Chiné', '#9CA3AF'], ['Noir', '#111111']],
+                'colors' => [['Bleu', '#3B82F6']],
                 'featured' => false,
+                'podium' => false,
             ],
             [
                 'slug' => 'ripped-mom-fit-jeans',
                 'category' => 'regular',
-                'source' => 'product-jeans.png',
+                'image' => 'products/jean-mom-fit-bleu.webp',
                 'price' => 69.900,
-                'name' => ['fr' => 'Jean Mom-Fit Déchiré', 'en' => 'Ripped Mom-Fit Jeans', 'ar' => 'جينز مقاس مام ممزق'],
+                'compare_at_price' => 79.900,
+                'name' => ['fr' => 'Jean Mom-Fit Déchiré', 'en' => 'Ripped Mom-Fit Jeans', 'ar' => 'جينز مام فت ممزق'],
                 'description' => [
-                    'fr' => "Denim délavé clair avec détails déchirés et une coupe mom-fit détendue. Finitions avec une quincaillerie de marque premium.",
-                    'en' => 'Light-wash denim with distressed detailing and a relaxed mom-fit taper. Finished with premium branded hardware.',
-                    'ar' => 'دنيم فاتح بتفاصيل ممزقة وقصة مام مريحة. تشطيبات بإكسسوارات مميزة.',
+                    'fr' => 'Jean bleu clair à taille haute avec détails déchirés et coupe mom-fit décontractée. Une base moderne pour toutes les saisons.',
+                    'en' => 'High-waisted light blue jeans with distressed details and a relaxed mom fit. A modern staple for every season.',
+                    'ar' => 'جينز أزرق فاتح بخصر مرتفع وتفاصيل ممزقة وقصة مام فت مريحة.',
                 ],
                 'sizes' => ['28', '30', '32', '34', '36'],
                 'colors' => [['Bleu Clair', '#93C5FD']],
                 'featured' => false,
+                'podium' => false,
             ],
         ];
     }
 
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $images = app(ImageUploadService::class);
         $stock = app(StockService::class);
-        $sourceDir = base_path('assets');
 
-        foreach ($this->catalog() as $sortOrder => $item) {
+        foreach ($this->catalog() as $item) {
             $category = Category::where('slug', $item['category'])->first();
 
             if (! $category) {
@@ -134,8 +156,10 @@ class ProductSeeder extends Seeder
                     'name' => $item['name'],
                     'description' => $item['description'],
                     'price' => $item['price'],
+                    'compare_at_price' => $item['compare_at_price'],
                     'is_active' => true,
                     'is_featured' => $item['featured'],
+                    'is_on_podium' => $item['podium'],
                 ]
             );
 
@@ -153,29 +177,20 @@ class ProductSeeder extends Seeder
 
             $stock->syncVariants($product->fresh(['sizes', 'colors']));
 
-            // Give every variant a modest, varied stock count so the storefront and dashboard have real numbers to show.
             $product->variants()->get()->each(
-                fn ($variant, $i) => $variant->stock_quantity === 0
-                    ? $variant->update(['stock_quantity' => 8 + ($i * 3) % 20])
+                fn ($variant, $index) => $variant->stock_quantity === 0
+                    ? $variant->update(['stock_quantity' => 12 + ($index * 3) % 16])
                     : null
             );
 
-            if ($product->images()->count() === 0) {
-                $sourcePath = $sourceDir.'/'.$item['source'];
-
-                if (is_file($sourcePath)) {
-                    $path = $images->store(
-                        new UploadedFile($sourcePath, $item['source'], null, null, true),
-                        'products'
-                    );
-
-                    $product->images()->create([
-                        'path' => $path,
-                        'sort_order' => 0,
-                        'is_primary' => true,
-                    ]);
-                }
-            }
+            $product->images()->updateOrCreate(
+                ['sort_order' => 0],
+                [
+                    'path' => $item['image'],
+                    'is_primary' => true,
+                    'product_color_id' => $product->colors()->value('id'),
+                ]
+            );
         }
     }
 }
