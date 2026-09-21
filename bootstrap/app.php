@@ -36,6 +36,17 @@ return Application::configure(basePath: dirname(__DIR__))
             : route('home'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        $exceptions->report(function (Throwable $exception): void {
+            $message = preg_replace('/\s+/', ' ', $exception->getMessage()) ?? $exception->getMessage();
+            $message = preg_replace('#(postgres(?:ql)?://[^:]+:)[^@]+@#i', '$1[redacted]@', $message) ?? $message;
+
+            error_log(sprintf(
+                'Laravel exception: %s: %s',
+                $exception::class,
+                substr($message, 0, 1000),
+            ));
+        })->stop();
+
         $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
             if ($response->getStatusCode() === 419
                 && $request->routeIs('admin.login.attempt')
