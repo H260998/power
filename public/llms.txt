@@ -1,0 +1,51 @@
+# ALO E-SHOP
+
+> ALO E-SHOP est une boutique tunisienne de mode en ligne proposant des vêtements, des sneakers et des casquettes. Les prix sont affichés en dinars tunisiens (TND/DT).
+
+Le site est disponible en français, en anglais et en arabe. Les fiches produit présentent les descriptions, prix, tailles, couleurs et disponibilités.
+
+## Pages principales
+
+- [Accueil](https://power-xi-murex.vercel.app/): Nouveautés et sélection de produits ALO E-SHOP.
+- [Boutique](https://power-xi-murex.vercel.app/boutique): Catalogue complet avec filtres par catégorie, taille et prix.
+- [Centre d'aide](https://power-xi-murex.vercel.app/aide): Réponses aux questions fréquentes.
+- [À propos](https://power-xi-murex.vercel.app/a-propos): Présentation de la boutique ALO E-SHOP.
+- [Contact](https://power-xi-murex.vercel.app/contact): Coordonnées et moyens de contacter la boutique.
+- [Suivi de commande](https://power-xi-murex.vercel.app/order/track): Suivi d'une commande existante.
+
+## Catégories de produits
+
+- [T-shirts et polos](https://power-xi-murex.vercel.app/boutique?category=t-shirts-polos): T-shirts basiques ou imprimés et polos.
+- [Pantalons et chinos](https://power-xi-murex.vercel.app/boutique?category=pants-chinos): Pantalons habillés et chinos.
+- [Jeans](https://power-xi-murex.vercel.app/boutique?category=jeans): Shorts et jeans en denim.
+- [Vestes et manteaux](https://power-xi-murex.vercel.app/boutique?category=jackets-coats): Vestes et pièces d'extérieur.
+- [Sportswear](https://power-xi-murex.vercel.app/boutique?category=sportswear): Vêtements confortables pour le sport et la détente.
+- [Sneakers](https://power-xi-murex.vercel.app/boutique?category=sneakers): Chaussures de sport et modèles urbains.
+- [Casquettes et chapeaux](https://power-xi-murex.vercel.app/boutique?category=caps-hats): Casquettes classiques et trucker.
+
+## Produits
+
+- [Short en Jean Délavé Gris](https://power-xi-murex.vercel.app/product/short-jean-delave-gris): Short en denim gris délavé à coupe droite.
+- [Casquette NY Noire](https://power-xi-murex.vercel.app/product/classic-snapback-cap): Casquette noire structurée avec logo NY blanc.
+- [T-shirt Oversize Magic](https://power-xi-murex.vercel.app/product/oversized-graphic-tee): T-shirt noir oversize avec imprimé graphique.
+- [Sneaker Uptempo Rouge](https://power-xi-murex.vercel.app/product/uptempo-retro-sneaker): Sneaker montante rouge, noire et blanche.
+- [Veste Teddy Boston](https://power-xi-murex.vercel.app/product/veste-teddy-noire-blanche-boston): Veste varsity noire et blanche.
+- [Short Molleton Bleu Power](https://power-xi-murex.vercel.app/product/essential-blue-sweatshorts): Short bleu confortable avec taille élastique.
+- [Jean Mom-Fit Déchiré](https://power-xi-murex.vercel.app/product/ripped-mom-fit-jeans): Jean bleu clair taille haute et coupe mom-fit.
+- [Polo Marine Classique](https://power-xi-murex.vercel.app/product/polo-marine-classique): Polo bleu marine à manches courtes.
+- [Chino Vert Foncé](https://power-xi-murex.vercel.app/product/chino-vert-fonce): Chino vert foncé à coupe ajustée.
+- [Pantalon Habillé Noir](https://power-xi-murex.vercel.app/product/pantalon-habille-noir): Pantalon noir à plis et coupe fuselée.
+- [Jean Cargo Bleu](https://power-xi-murex.vercel.app/product/jean-cargo-bleu): Jean droit avec grandes poches latérales.
+- [Casquette Noire Essentielle](https://power-xi-murex.vercel.app/product/casquette-noire-essentielle): Casquette noire unie et réglable.
+- [Casquette Trucker Bordeaux](https://power-xi-murex.vercel.app/product/casquette-trucker-bordeaux): Casquette bordeaux avec dos en mesh.
+- [Sneakers en Cuir Noir](https://power-xi-murex.vercel.app/product/sneakers-cuir-noir): Sneakers basses en cuir noir grainé.
+- [Sneakers Plateforme Blanc et Noir](https://power-xi-murex.vercel.app/product/sneakers-plateforme-blanc-noir): Sneakers blanches à détails noirs et semelle plateforme.
+
+## Informations légales
+
+- [Politique de confidentialité](https://power-xi-murex.vercel.app/confidentialite)
+- [Conditions générales](https://power-xi-murex.vercel.app/conditions-generales)
+
+## Ressource technique
+
+- [Sitemap XML](https://power-xi-murex.vercel.app/sitemap.xml): Liste structurée des pages, catégories, produits et images indexables.

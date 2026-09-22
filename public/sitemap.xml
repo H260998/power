@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url><loc>https://power-xi-murex.vercel.app/</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/boutique</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/aide</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/a-propos</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/contact</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/confidentialite</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/conditions-generales</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/order/track</loc><lastmod>2026-09-22</lastmod></url>
+
+    <url><loc>https://power-xi-murex.vercel.app/boutique?category=t-shirts-polos</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/boutique?category=pants-chinos</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/boutique?category=jeans</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/boutique?category=jackets-coats</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/boutique?category=sportswear</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/boutique?category=sneakers</loc><lastmod>2026-09-22</lastmod></url>
+    <url><loc>https://power-xi-murex.vercel.app/boutique?category=caps-hats</loc><lastmod>2026-09-22</lastmod></url>
+
+    <url><loc>https://power-xi-murex.vercel.app/product/short-jean-delave-gris</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/short-jean-delave.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/classic-snapback-cap</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/casquette-ny-noire.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/oversized-graphic-tee</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/tshirt-magic-noir.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/uptempo-retro-sneaker</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/sneaker-uptempo-rouge.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/veste-teddy-noire-blanche-boston</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/veste-varsity-boston.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/essential-blue-sweatshorts</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/short-molleton-bleu.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/ripped-mom-fit-jeans</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/jean-mom-fit-bleu.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/polo-marine-classique</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/polo-marine-classique.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/chino-vert-fonce</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/chino-vert-fonce.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/pantalon-habille-noir</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/pantalon-habille-noir.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/jean-cargo-bleu</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/jean-cargo-bleu.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/casquette-noire-essentielle</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/casquette-noire-essentielle.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/casquette-trucker-bordeaux</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/casquette-trucker-bordeaux.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/sneakers-cuir-noir</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/sneakers-cuir-noir.webp</image:loc></image:image></url>
+    <url><loc>https://power-xi-murex.vercel.app/product/sneakers-plateforme-blanc-noir</loc><lastmod>2026-09-22</lastmod><image:image><image:loc>https://power-xi-murex.vercel.app/uploads/products/sneakers-plateforme-blanc-noir.webp</image:loc></image:image></url>
+</urlset>
