@@ -41,9 +41,22 @@
                     @endforeach
                 </div>
 
-                <div class="text-[14.5px] font-extrabold mb-4">{{ __('storefront.filter_price') }}</div>
-                <input type="range" name="price_max" min="0" max="300" step="10" value="{{ request('price_max', 300) }}"
+                @php $selectedMaxPrice = min(300, max(0, (int) request('price_max', 300))); @endphp
+                <div class="flex items-center justify-between gap-3 mb-3">
+                    <div class="text-[14.5px] font-extrabold">{{ __('storefront.filter_price') }}</div>
+                    <output id="price-max-value" for="price-max"
+                            class="rounded-full bg-ink px-3 py-1 text-[12px] font-extrabold text-white tabular-nums">
+                        {{ number_format($selectedMaxPrice, 3) }} {{ __('storefront.currency') }}
+                    </output>
+                </div>
+                <input id="price-max" type="range" name="price_max" min="0" max="300" step="10" value="{{ $selectedMaxPrice }}"
+                       aria-describedby="price-max-value"
+                       oninput="document.getElementById('price-max-value').textContent = Number(this.value).toFixed(3) + ' {{ __('storefront.currency') }}'"
                        onchange="this.form.submit()" class="w-full accent-gold">
+                <div class="mt-1.5 flex justify-between text-[11px] font-semibold text-muted tabular-nums">
+                    <span>0.000 {{ __('storefront.currency') }}</span>
+                    <span>300.000 {{ __('storefront.currency') }}</span>
+                </div>
             </form>
         </aside>
 
