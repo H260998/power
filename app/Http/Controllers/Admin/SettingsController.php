@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Services\SettingsService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,6 +28,7 @@ class SettingsController extends Controller
             'settings' => $this->settings->all(),
             'scalarKeys' => self::SCALAR_KEYS,
             'translatableKeys' => self::TRANSLATABLE_KEYS,
+            'admins' => Admin::query()->orderBy('name')->get(['id', 'name', 'email']),
         ]);
     }
 

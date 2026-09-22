@@ -83,4 +83,73 @@
             <button type="submit" class="bg-ink text-white px-7 py-3.5 rounded-full text-sm font-bold">{{ __('admin.save') }}</button>
         </div>
     </form>
+
+    <div class="max-w-3xl mt-12">
+        <div class="text-[22px] font-extrabold mb-1.5">{{ __('admin.settings_admin_accounts') }}</div>
+        <div class="text-muted text-[14px] mb-6">{{ __('admin.settings_admin_accounts_help') }}</div>
+
+        <div class="bg-white border border-border-light rounded-[20px] p-6 md:p-8 shadow-[0_20px_40px_rgba(17,17,17,0.04)] mb-6">
+            <div class="text-[17px] font-extrabold mb-4">{{ __('admin.settings_existing_admins') }}</div>
+            <div class="divide-y divide-border-light">
+                @foreach ($admins as $admin)
+                    <div class="flex flex-wrap items-center justify-between gap-2 py-3 first:pt-0 last:pb-0">
+                        <div>
+                            <div class="text-sm font-bold">{{ $admin->name }}</div>
+                            <div class="text-[13px] text-muted">{{ $admin->email }}</div>
+                        </div>
+                        @if ($admin->getKey() === auth('admin')->id())
+                            <span class="rounded-full bg-gold/20 px-3 py-1 text-[11px] font-extrabold">{{ __('admin.settings_you') }}</span>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+            <form method="POST" action="{{ route('admin.settings.admins.store') }}" class="bg-white border border-border-light rounded-[20px] p-6 md:p-8 shadow-[0_20px_40px_rgba(17,17,17,0.04)]">
+                @csrf
+                <div class="text-[17px] font-extrabold mb-1">{{ __('admin.settings_add_admin') }}</div>
+                <div class="text-[12px] text-muted mb-5">{{ __('admin.settings_password_requirements') }}</div>
+
+                @if ($errors->createAdmin->any())
+                    <div class="mb-4 bg-[#FEE2E2] text-[#DC2626] text-[12px] font-semibold px-4 py-3 rounded-xl">{{ $errors->createAdmin->first() }}</div>
+                @endif
+
+                <label class="block text-[13px] font-bold mb-1.5" for="admin-name">{{ __('admin.settings_admin_name') }}</label>
+                <input id="admin-name" type="text" name="name" value="{{ old('name') }}" required autocomplete="name" class="w-full border border-border rounded-xl px-4 py-3 text-sm mb-4">
+
+                <label class="block text-[13px] font-bold mb-1.5" for="admin-email">{{ __('admin.email') }}</label>
+                <input id="admin-email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" class="w-full border border-border rounded-xl px-4 py-3 text-sm mb-4">
+
+                <label class="block text-[13px] font-bold mb-1.5" for="admin-password">{{ __('admin.password') }}</label>
+                <input id="admin-password" type="password" name="password" required autocomplete="new-password" class="w-full border border-border rounded-xl px-4 py-3 text-sm mb-4">
+
+                <label class="block text-[13px] font-bold mb-1.5" for="admin-password-confirmation">{{ __('admin.settings_confirm_password') }}</label>
+                <input id="admin-password-confirmation" type="password" name="password_confirmation" required autocomplete="new-password" class="w-full border border-border rounded-xl px-4 py-3 text-sm mb-5">
+
+                <button type="submit" class="bg-ink text-white px-6 py-3 rounded-full text-sm font-bold">{{ __('admin.settings_add_admin_button') }}</button>
+            </form>
+
+            <form method="POST" action="{{ route('admin.settings.password.update') }}" class="bg-white border border-border-light rounded-[20px] p-6 md:p-8 shadow-[0_20px_40px_rgba(17,17,17,0.04)]">
+                @csrf @method('PUT')
+                <div class="text-[17px] font-extrabold mb-1">{{ __('admin.settings_change_password') }}</div>
+                <div class="text-[12px] text-muted mb-5">{{ __('admin.settings_password_requirements') }}</div>
+
+                @if ($errors->updatePassword->any())
+                    <div class="mb-4 bg-[#FEE2E2] text-[#DC2626] text-[12px] font-semibold px-4 py-3 rounded-xl">{{ $errors->updatePassword->first() }}</div>
+                @endif
+
+                <label class="block text-[13px] font-bold mb-1.5" for="current-password">{{ __('admin.settings_current_password') }}</label>
+                <input id="current-password" type="password" name="current_password" required autocomplete="current-password" class="w-full border border-border rounded-xl px-4 py-3 text-sm mb-4">
+
+                <label class="block text-[13px] font-bold mb-1.5" for="new-password">{{ __('admin.settings_new_password') }}</label>
+                <input id="new-password" type="password" name="new_password" required autocomplete="new-password" class="w-full border border-border rounded-xl px-4 py-3 text-sm mb-4">
+
+                <label class="block text-[13px] font-bold mb-1.5" for="new-password-confirmation">{{ __('admin.settings_confirm_password') }}</label>
+                <input id="new-password-confirmation" type="password" name="new_password_confirmation" required autocomplete="new-password" class="w-full border border-border rounded-xl px-4 py-3 text-sm mb-5">
+
+                <button type="submit" class="bg-ink text-white px-6 py-3 rounded-full text-sm font-bold">{{ __('admin.settings_change_password_button') }}</button>
+            </form>
+        </div>
+    </div>
 @endsection

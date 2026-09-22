@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\AdminAccountController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MarketingController;
@@ -51,6 +52,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('settings', [SettingsController::class, 'edit'])->name('settings.edit');
         Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
+        Route::post('settings/admins', [AdminAccountController::class, 'store'])->name('settings.admins.store');
+        Route::put('settings/password', [AdminAccountController::class, 'updatePassword'])->name('settings.password.update');
 
         Route::get('marketing', [MarketingController::class, 'edit'])->name('marketing');
         Route::put('marketing', [MarketingController::class, 'update'])->name('marketing.update');
