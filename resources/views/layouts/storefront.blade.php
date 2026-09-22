@@ -99,28 +99,24 @@
         <div>
             <div class="font-bold mb-3.5 text-sm">{{ __('storefront.footer_shop') }}</div>
             <div class="flex flex-col gap-2.5 text-gray-400 text-[13.5px]">
-                <a href="{{ url('/boutique') }}" class="hover:text-white">{{ __('storefront.footer_new_in') }}</a>
-                <a href="{{ url('/boutique') }}" class="hover:text-white">{{ __('storefront.footer_tshirts') }}</a>
-                <a href="{{ url('/boutique') }}" class="hover:text-white">{{ __('storefront.footer_outerwear') }}</a>
-                <a href="{{ url('/boutique') }}" class="hover:text-white">{{ __('storefront.footer_footwear') }}</a>
+                <a href="{{ route('shop.index', ['sort' => 'newest']) }}" class="hover:text-white">{{ __('storefront.footer_new_in') }}</a>
+                <a href="{{ route('shop.index', ['category' => 't-shirts-polos']) }}" class="hover:text-white">{{ __('storefront.footer_tshirts') }}</a>
+                <a href="{{ route('shop.index', ['category' => 'jackets-coats']) }}" class="hover:text-white">{{ __('storefront.footer_outerwear') }}</a>
+                <a href="{{ route('shop.index', ['category' => 'sneakers']) }}" class="hover:text-white">{{ __('storefront.footer_footwear') }}</a>
             </div>
         </div>
         <div>
             <div class="font-bold mb-3.5 text-sm">{{ __('storefront.footer_support') }}</div>
             <div class="flex flex-col gap-2.5 text-gray-400 text-[13.5px]">
-                <span>{{ __('storefront.footer_help') }}</span>
-                <span>{{ __('storefront.footer_shipping') }}</span>
-                <span>{{ __('storefront.footer_returns') }}</span>
-                <a href="{{ url('/order/track') }}" class="hover:text-white">{{ __('storefront.footer_track_order') }}</a>
+                <a href="{{ route('pages.help') }}" class="hover:text-white">{{ __('storefront.footer_help') }}</a>
+                <a href="{{ route('order.track') }}" class="hover:text-white">{{ __('storefront.footer_track_order') }}</a>
             </div>
         </div>
         <div>
             <div class="font-bold mb-3.5 text-sm">{{ __('storefront.footer_company') }}</div>
             <div class="flex flex-col gap-2.5 text-gray-400 text-[13.5px]">
-                <span>{{ __('storefront.footer_about') }}</span>
-                <span>{{ __('storefront.footer_careers') }}</span>
-                <span>{{ __('storefront.footer_sustainability') }}</span>
-                <span>{{ __('storefront.footer_contact') }}</span>
+                <a href="{{ route('pages.about') }}" class="hover:text-white">{{ __('storefront.footer_about') }}</a>
+                <a href="{{ route('pages.contact') }}" class="hover:text-white">{{ __('storefront.footer_contact') }}</a>
             </div>
         </div>
         <div class="min-w-[220px]">
@@ -135,8 +131,8 @@
     <div class="border-t border-white/10 pt-6 flex flex-wrap justify-between gap-3 text-gray-400 text-[12.5px]">
         <span>&copy; {{ date('Y') }} {{ config('brand.name') }}. {{ __('storefront.footer_rights') }}</span>
         <div class="flex gap-5">
-            <span>{{ __('storefront.footer_privacy') }}</span>
-            <span>{{ __('storefront.footer_terms') }}</span>
+            <a href="{{ route('pages.privacy') }}" class="hover:text-white">{{ __('storefront.footer_privacy') }}</a>
+            <a href="{{ route('pages.terms') }}" class="hover:text-white">{{ __('storefront.footer_terms') }}</a>
             <a href="{{ route('admin.dashboard') }}" class="hover:text-white">{{ __('storefront.footer_admin') }}</a>
         </div>
     </div>

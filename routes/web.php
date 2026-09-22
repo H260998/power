@@ -3,6 +3,7 @@
 use App\Http\Controllers\Storefront\CartController;
 use App\Http\Controllers\Storefront\CheckoutController;
 use App\Http\Controllers\Storefront\HomeController;
+use App\Http\Controllers\Storefront\InformationController;
 use App\Http\Controllers\Storefront\LocaleController;
 use App\Http\Controllers\Storefront\OrderConfirmationController;
 use App\Http\Controllers\Storefront\OrderTrackingController;
@@ -37,3 +38,9 @@ Route::get('/order/track', [OrderTrackingController::class, 'index'])->name('ord
 Route::post('/order/track', [OrderTrackingController::class, 'lookup'])->name('order.track.lookup');
 
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+
+Route::get('/aide', [InformationController::class, 'show'])->defaults('page', 'help')->name('pages.help');
+Route::get('/a-propos', [InformationController::class, 'show'])->defaults('page', 'about')->name('pages.about');
+Route::get('/contact', [InformationController::class, 'show'])->defaults('page', 'contact')->name('pages.contact');
+Route::get('/confidentialite', [InformationController::class, 'show'])->defaults('page', 'privacy')->name('pages.privacy');
+Route::get('/conditions-generales', [InformationController::class, 'show'])->defaults('page', 'terms')->name('pages.terms');
