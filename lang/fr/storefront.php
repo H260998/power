@@ -42,6 +42,11 @@ return [
     'promo_not_found' => "Ce code promo n'existe pas.",
     'promo_expired' => "Ce code promo n'est plus valide.",
     'promo_min_order' => 'Commande minimum de :amount requise.',
+    'promo_banner_percentage' => 'Offre spéciale : -:value % sur votre commande',
+    'promo_banner_fixed' => 'Offre spéciale : :value :currency de réduction sur votre commande',
+    'promo_banner_min_order' => "Dès :amount :currency d'achat",
+    'promo_banner_expires' => "Jusqu'au :date",
+    'promo_banner_cta' => 'En profiter',
 
     'hero_shop_now' => 'Acheter',
     'hero_explore' => 'Explorer la Collection',

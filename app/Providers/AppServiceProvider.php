@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\PromoCode;
 use App\Services\CartService;
 use App\Services\SettingsService;
 use Illuminate\Support\Facades\View;
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.storefront', function ($view) {
             $view->with('cartCount', app(CartService::class)->count());
             $view->with('metaPixelId', app(SettingsService::class)->get('meta_pixel_id'));
+            $view->with('activePromo', PromoCode::currentlyValid()->latest()->first());
         });
     }
 }

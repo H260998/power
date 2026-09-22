@@ -42,6 +42,11 @@ return [
     'promo_not_found' => 'كود الخصم هذا غير موجود.',
     'promo_expired' => 'كود الخصم هذا لم يعد صالحًا.',
     'promo_min_order' => 'الحد الأدنى للطلب هو :amount.',
+    'promo_banner_percentage' => 'عرض خاص: خصم :value٪ على طلبك',
+    'promo_banner_fixed' => 'عرض خاص: خصم :value :currency على طلبك',
+    'promo_banner_min_order' => 'للطلبات بداية من :amount :currency',
+    'promo_banner_expires' => 'ينتهي في :date',
+    'promo_banner_cta' => 'استفد الآن',
 
     'hero_shop_now' => 'تسوق الآن',
     'hero_explore' => 'استكشف المجموعة',

@@ -35,6 +35,27 @@
 <body class="bg-white text-ink font-sans antialiased min-h-screen flex flex-col overflow-x-hidden">
 
 <header class="sticky top-0 z-50 bg-white border-b border-black/[0.06]">
+    @if ($activePromo)
+        @php
+            $promoMessage = $activePromo->type === \App\Enums\PromoType::Percentage
+                ? __('storefront.promo_banner_percentage', ['value' => (float) $activePromo->value])
+                : __('storefront.promo_banner_fixed', ['value' => (float) $activePromo->value, 'currency' => __('storefront.currency')]);
+        @endphp
+        <a href="{{ route('shop.index') }}" class="block bg-gold text-ink px-4 py-2.5 text-center">
+            <span class="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[12px] sm:text-[13px]">
+                <span aria-hidden="true">✦</span>
+                <strong class="font-extrabold">{{ $promoMessage }}</strong>
+                @if ($activePromo->min_order_amount)
+                    <span class="border-s border-black/25 ps-3">{{ __('storefront.promo_banner_min_order', ['amount' => (float) $activePromo->min_order_amount, 'currency' => __('storefront.currency')]) }}</span>
+                @endif
+                @if ($activePromo->expires_at)
+                    <span class="border-s border-black/25 ps-3">{{ __('storefront.promo_banner_expires', ['date' => $activePromo->expires_at->format('d/m/Y')]) }}</span>
+                @endif
+                <span class="font-bold underline underline-offset-2">{{ __('storefront.promo_banner_cta') }} →</span>
+                <span aria-hidden="true">✦</span>
+            </span>
+        </a>
+    @endif
     <div class="flex items-center justify-between h-[88px] px-6 lg:px-16">
         <a href="{{ route('home') }}" class="flex items-center gap-2.5" aria-label="{{ config('brand.name') }}">
             <img src="{{ asset(config('brand.logo')) }}" alt="{{ config('brand.name') }}" class="h-11 w-auto object-contain">
