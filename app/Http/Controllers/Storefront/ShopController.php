@@ -16,6 +16,8 @@ class ShopController extends Controller
         $query = Product::with(['category', 'images', 'variants'])->active();
 
         $activeCategory = null;
+        $categoryIds = collect();
+        $sizes = collect();
 
         if ($request->filled('category')) {
             $activeCategory = Category::where('slug', $request->string('category'))->first();
@@ -26,10 +28,19 @@ class ShopController extends Controller
                     : collect([$activeCategory->id]);
 
                 $query->whereIn('category_id', $categoryIds);
+
+                $sizes = ProductSize::query()
+                    ->whereHas('product', fn ($productQuery) => $productQuery
+                        ->active()
+                        ->whereIn('category_id', $categoryIds))
+                    ->select('label')
+                    ->distinct()
+                    ->orderBy('label')
+                    ->pluck('label');
             }
         }
 
-        if ($request->filled('size')) {
+        if ($activeCategory && $request->filled('size') && $sizes->contains($request->string('size')->toString())) {
             $query->whereHas('sizes', fn ($q) => $q->where('label', $request->string('size')));
         }
 
@@ -55,7 +66,6 @@ class ShopController extends Controller
         $products = $query->paginate(9)->withQueryString();
 
         $categories = Category::with('children')->topLevel()->active()->orderBy('sort_order')->get();
-        $sizes = ProductSize::select('label')->distinct()->orderBy('label')->pluck('label');
 
         return view('storefront.boutique', compact('products', 'categories', 'sizes', 'activeCategory'));
     }

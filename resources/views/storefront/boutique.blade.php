@@ -18,12 +18,12 @@
 
                 <div class="text-[14.5px] font-extrabold mb-4">{{ __('storefront.filter_category') }}</div>
                 <div class="flex flex-col gap-3 mb-7">
-                    <a href="{{ route('shop.index', request()->except('category')) }}" class="flex items-center gap-2.5 text-sm {{ ! $activeCategory ? 'font-bold text-ink' : 'text-gray-700' }}">
+                    <a href="{{ route('shop.index', request()->except(['category','size','page'])) }}" class="flex items-center gap-2.5 text-sm {{ ! $activeCategory ? 'font-bold text-ink' : 'text-gray-700' }}">
                         <span class="w-4 h-4 rounded-[5px] border border-gray-300 {{ ! $activeCategory ? 'bg-ink border-ink' : '' }}"></span>
                         {{ __('storefront.all_categories') }}
                     </a>
                     @foreach ($categories as $cat)
-                        <a href="{{ route('shop.index', array_merge(request()->except(['category','page']), ['category' => $cat->slug])) }}"
+                        <a href="{{ route('shop.index', array_merge(request()->except(['category','size','page']), ['category' => $cat->slug])) }}"
                            class="flex items-center gap-2.5 text-sm {{ $activeCategory?->id === $cat->id ? 'font-bold text-ink' : 'text-gray-700' }}">
                             <span class="w-4 h-4 rounded-[5px] border border-gray-300 {{ $activeCategory?->id === $cat->id ? 'bg-ink border-ink' : '' }}"></span>
                             {{ $cat->name }}
@@ -31,15 +31,17 @@
                     @endforeach
                 </div>
 
-                <div class="text-[14.5px] font-extrabold mb-4">{{ __('storefront.filter_size') }}</div>
-                <div class="flex flex-wrap gap-2 mb-7">
-                    @foreach ($sizes as $size)
-                        <a href="{{ request('size') === $size ? route('shop.index', request()->except(['size','page'])) : route('shop.index', array_merge(request()->except('page'), ['size' => $size])) }}"
-                           class="border rounded-lg px-3 py-1.5 text-[12.5px] font-semibold {{ request('size') === $size ? 'border-ink bg-ink text-white' : 'border-border' }}">
-                            {{ $size }}
-                        </a>
-                    @endforeach
-                </div>
+                @if ($activeCategory && $sizes->isNotEmpty())
+                    <div class="text-[14.5px] font-extrabold mb-4">{{ __('storefront.filter_size') }}</div>
+                    <div class="flex flex-wrap gap-2 mb-7">
+                        @foreach ($sizes as $size)
+                            <a href="{{ request('size') === $size ? route('shop.index', request()->except(['size','page'])) : route('shop.index', array_merge(request()->except('page'), ['size' => $size])) }}"
+                               class="border rounded-lg px-3 py-1.5 text-[12.5px] font-semibold {{ request('size') === $size ? 'border-ink bg-ink text-white' : 'border-border' }}">
+                                {{ $size }}
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
 
                 @php
                     $priceFloor = 0;
