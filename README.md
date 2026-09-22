@@ -10,6 +10,11 @@ Consulter [le guide de déploiement Vercel et Supabase](DEPLOYMENT-VERCEL.md)
 pour configurer les variables privées, la base et le premier administrateur.
 Le [guide cPanel](DEPLOYMENT.md) couvre l'hébergement PHP classique.
 
+Sur un nouvel hébergement, configurez `APP_KEY`, la connexion à la base et un
+`SETUP_TOKEN` secret, puis ouvrez `/setup`. L'assistant crée le schéma, les
+tables, le catalogue initial et le premier administrateur. Il se verrouille
+automatiquement après cette première installation.
+
 ## Vérifications locales
 
 ```sh

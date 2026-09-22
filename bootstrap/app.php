@@ -14,6 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
+            // Setup is deliberately stateless so it also works before the
+            // database-backed sessions table has been created.
+            Route::middleware([])
+                ->group(__DIR__.'/../routes/setup.php');
+
             Route::middleware('web')
                 ->group(__DIR__.'/../routes/admin.php');
 

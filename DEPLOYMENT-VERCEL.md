@@ -13,13 +13,14 @@ Future pushes to `main` deploy through Vercel's GitHub integration.
 
 In the Supabase project dedicated to POWER:
 
-1. Run `database/supabase-bootstrap.sql` in the SQL Editor. Laravel tables live
-   in the `laravel` schema, outside Supabase's public Data API.
-2. Open **Connect** and copy the **Session pooler** connection URL (port 5432).
+1. Open **Connect** and copy the **Session pooler** connection URL (port 5432).
    Use the exact host and username shown by Supabase. Replace the password
    placeholder and percent-encode any reserved characters in the password.
-3. Store the URL as `DB_URL` in Vercel and in an ignored local `.env` for
+2. Store the URL as `DB_URL` in Vercel and in an ignored local `.env` for
    migrations. Set `DB_SCHEMA=laravel` and `DB_SSLMODE=require` in both places.
+
+The one-time browser installer creates the private `laravel` schema. The SQL
+file at `database/supabase-bootstrap.sql` remains available as a manual fallback.
 
 Do not use the Transaction pooler (port 6543) with this configuration.
 Administrator authentication continues to use Laravel, not Supabase Auth.
@@ -51,6 +52,7 @@ their own database and storage instead of modifying production data:
 | `APP_DEBUG` | `false` |
 | `APP_KEY` | A persistent Laravel key, stored as a sensitive variable |
 | `APP_URL` | The production HTTPS URL |
+| `SETUP_TOKEN` | A random secret of at least 32 characters, stored as sensitive |
 | `APP_LOCALE`, `APP_FALLBACK_LOCALE` | `fr` |
 | `DB_CONNECTION` | `pgsql` |
 | `DB_URL` | Supabase Session pooler URL (port 5432), stored as sensitive |
@@ -67,7 +69,30 @@ their own database and storage instead of modifying production data:
 Configure a mail provider before enabling outbound email. The initial deployment
 uses the `log` mailer. A custom domain requires updating `APP_URL` and redeploying.
 
-## Initialize a new database
+## Initialize a new database in the browser
+
+Generate the two required secrets locally and add them to Vercel before the
+first deployment:
+
+```sh
+php artisan key:generate --show
+php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"
+```
+
+Store the first value as `APP_KEY` and the second as `SETUP_TOKEN`. After the
+deployment, open `https://your-domain.tld/setup`, verify that all three checks
+are green, then enter `SETUP_TOKEN` and the first administrator's details.
+
+The installer creates the PostgreSQL schema, runs all migrations, loads the
+categories, products and store settings, and creates the administrator. It does
+not display or store the setup token in the database. As soon as the first
+administrator exists, both `/setup` routes return 404 permanently. Remove
+`SETUP_TOKEN` from Vercel after installation as an additional precaution.
+
+The setup route is stateless so it works before the database session and cache
+tables exist. Never add it behind database-backed session middleware.
+
+## Command-line alternative
 
 Run migrations from a trusted local terminal with the production database
 connection in an ignored `.env` and the PHP `pdo_pgsql` extension enabled.
@@ -79,6 +104,7 @@ composer install --no-dev --optimize-autoloader
 php artisan config:clear
 php artisan migrate --force
 php artisan db:seed --class=CategorySeeder --force
+php artisan db:seed --class=ProductSeeder --force
 php artisan db:seed --class=SettingSeeder --force
 php artisan db:seed --class=AdminSeeder --force
 ```
@@ -86,9 +112,6 @@ php artisan db:seed --class=AdminSeeder --force
 The administrator seeder requires a valid `ADMIN_EMAIL` and an initial
 `ADMIN_PASSWORD` of at least 12 characters. It does not reset an existing
 administrator's password. These initialization values need not remain on Vercel.
-The production setup leaves the product catalog empty; `ProductSeeder` contains
-demonstration products and should only be used deliberately.
-
 Do not run migrations or seeders on every HTTP request or build. Apply future
 schema changes deliberately before deploying code that needs them.
 

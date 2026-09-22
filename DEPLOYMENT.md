@@ -45,13 +45,20 @@ Copy `.env.example` to `.env` and fill in:
 - Mail settings if you want order-related emails to send (optional — nothing in
   the app currently requires mail to function)
 
-Then generate the app key and run migrations/seeders:
+Then generate the application key and a one-time installation token:
 
 ```bash
 php artisan key:generate
-php artisan migrate --force
-php artisan db:seed --force
+php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"
 ```
+
+Add the generated random value as `SETUP_TOKEN`, open
+`https://your-domain.tld/setup`, and create the first administrator. The setup
+page creates all tables and initial store data, then permanently returns 404
+once an administrator exists. Remove `SETUP_TOKEN` from `.env` afterwards.
+
+If SSH is available, `php artisan migrate --force && php artisan db:seed --force`
+remains available as a command-line alternative.
 
 ## 5. Make `public/uploads/` writable
 
@@ -77,12 +84,11 @@ Re-run these three after any subsequent code deploy or `.env` change — a stale
 config cache is the most common source of "it works locally but not on the
 server" bugs.
 
-## 7. Log in and change the admin password
+## 7. Log in and manage administrator accounts
 
-Visit `https://your-domain.tld/admin/login` with the `ADMIN_EMAIL`/`ADMIN_PASSWORD`
-from `.env`, then change the password immediately (there's no self-service
-password-change screen yet — update it via `php artisan tinker` or a fresh
-`db:seed` run with new `.env` values if needed).
+Visit `https://your-domain.tld/admin/login` with the account created by the
+setup page. The bottom of **Settings** lets an administrator add another admin
+or change their own password.
 
 ## 8. Meta Pixel / Conversion API (optional)
 

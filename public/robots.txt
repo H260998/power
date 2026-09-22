@@ -4,6 +4,7 @@ Allow: /
 Disallow: /admin
 Disallow: /ajax
 Disallow: /lang/
+Disallow: /setup
 Disallow: /*?*price_min=
 Disallow: /*?*price_max=
 Disallow: /*?*size=
