@@ -41,21 +41,32 @@
                     @endforeach
                 </div>
 
-                @php $selectedMaxPrice = min(300, max(0, (int) request('price_max', 300))); @endphp
+                @php
+                    $priceFloor = 0;
+                    $priceCeiling = 300;
+                    $selectedMinPrice = min($priceCeiling - 10, max($priceFloor, (int) request('price_min', $priceFloor)));
+                    $selectedMaxPrice = min($priceCeiling, max($selectedMinPrice + 10, (int) request('price_max', $priceCeiling)));
+                @endphp
                 <div class="flex items-center justify-between gap-3 mb-3">
                     <div class="text-[14.5px] font-extrabold">{{ __('storefront.filter_price') }}</div>
-                    <output id="price-max-value" for="price-max"
+                    <output id="price-range-value" for="price-min price-max"
                             class="rounded-full bg-ink px-3 py-1 text-[12px] font-extrabold text-white tabular-nums">
-                        {{ number_format($selectedMaxPrice, 3) }} {{ __('storefront.currency') }}
+                        {{ number_format($selectedMinPrice, 3) }}–{{ number_format($selectedMaxPrice, 3) }} {{ __('storefront.currency') }}
                     </output>
                 </div>
-                <input id="price-max" type="range" name="price_max" min="0" max="300" step="10" value="{{ $selectedMaxPrice }}"
-                       aria-describedby="price-max-value"
-                       oninput="document.getElementById('price-max-value').textContent = Number(this.value).toFixed(3) + ' {{ __('storefront.currency') }}'"
-                       onchange="this.form.submit()" class="w-full accent-gold">
+                <div id="price-range" class="relative h-7" data-currency="{{ __('storefront.currency') }}">
+                    <div class="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-[#D1D5DB]"></div>
+                    <div id="price-range-fill" class="absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-gold"></div>
+                    <input id="price-min" type="range" name="price_min" min="{{ $priceFloor }}" max="{{ $priceCeiling }}" step="10" value="{{ $selectedMinPrice }}"
+                           aria-label="{{ __('storefront.filter_price') }} minimum" aria-describedby="price-range-value"
+                           class="price-range-thumb absolute inset-x-0 top-1/2 w-full -translate-y-1/2">
+                    <input id="price-max" type="range" name="price_max" min="{{ $priceFloor }}" max="{{ $priceCeiling }}" step="10" value="{{ $selectedMaxPrice }}"
+                           aria-label="{{ __('storefront.filter_price') }} maximum" aria-describedby="price-range-value"
+                           class="price-range-thumb absolute inset-x-0 top-1/2 w-full -translate-y-1/2">
+                </div>
                 <div class="mt-1.5 flex justify-between text-[11px] font-semibold text-muted tabular-nums">
-                    <span>0.000 {{ __('storefront.currency') }}</span>
-                    <span>300.000 {{ __('storefront.currency') }}</span>
+                    <span>{{ number_format($priceFloor, 3) }} {{ __('storefront.currency') }}</span>
+                    <span>{{ number_format($priceCeiling, 3) }} {{ __('storefront.currency') }}</span>
                 </div>
             </form>
         </aside>
@@ -88,4 +99,73 @@
         </div>
     </div>
 </div>
+
+<style>
+    .price-range-thumb {
+        appearance: none;
+        height: 0;
+        background: transparent;
+        pointer-events: none;
+    }
+    .price-range-thumb::-webkit-slider-thumb {
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid white;
+        border-radius: 9999px;
+        background: #EBAF16;
+        box-shadow: 0 0 0 1px rgba(17, 17, 17, .15);
+        cursor: pointer;
+        pointer-events: auto;
+    }
+    .price-range-thumb::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
+        border: 2px solid white;
+        border-radius: 9999px;
+        background: #EBAF16;
+        box-shadow: 0 0 0 1px rgba(17, 17, 17, .15);
+        cursor: pointer;
+        pointer-events: auto;
+    }
+</style>
+
+<script>
+(() => {
+    const range = document.getElementById('price-range');
+    const minimum = document.getElementById('price-min');
+    const maximum = document.getElementById('price-max');
+    const fill = document.getElementById('price-range-fill');
+    const output = document.getElementById('price-range-value');
+
+    if (!range || !minimum || !maximum || !fill || !output) return;
+
+    const step = Number(minimum.step) || 10;
+    const floor = Number(minimum.min);
+    const ceiling = Number(maximum.max);
+    const currency = range.dataset.currency;
+
+    const refresh = changed => {
+        let min = Number(minimum.value);
+        let max = Number(maximum.value);
+
+        if (max - min < step) {
+            if (changed === minimum) min = Math.max(floor, max - step);
+            else max = Math.min(ceiling, min + step);
+        }
+
+        minimum.value = min;
+        maximum.value = max;
+        fill.style.left = `${((min - floor) / (ceiling - floor)) * 100}%`;
+        fill.style.right = `${100 - ((max - floor) / (ceiling - floor)) * 100}%`;
+        output.textContent = `${min.toFixed(3)}–${max.toFixed(3)} ${currency}`;
+    };
+
+    minimum.addEventListener('input', () => refresh(minimum));
+    maximum.addEventListener('input', () => refresh(maximum));
+    minimum.addEventListener('change', () => minimum.form.submit());
+    maximum.addEventListener('change', () => maximum.form.submit());
+    refresh();
+})();
+</script>
 @endsection

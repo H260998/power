@@ -33,6 +33,10 @@ class ShopController extends Controller
             $query->whereHas('sizes', fn ($q) => $q->where('label', $request->string('size')));
         }
 
+        if ($request->filled('price_min')) {
+            $query->where('price', '>=', $request->float('price_min'));
+        }
+
         if ($request->filled('price_max')) {
             $query->where('price', '<=', $request->float('price_max'));
         }
