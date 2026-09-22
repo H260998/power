@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\OrderStatus;
 use App\Models\Order;
+use App\Models\PromoCode;
 use Illuminate\Support\Facades\DB;
 
 class OrderService
@@ -27,11 +28,19 @@ class OrderService
         }
 
         $subtotal = $this->cart->subtotal();
-        $discount = $this->cart->discount($this->promoCodeService);
         $shipping = $this->cart->shippingFee($this->settings);
-        $promoCode = $this->cart->promoCode();
+        $promoCodeId = $this->cart->promoCode()?->id;
 
-        return DB::transaction(function () use ($lines, $subtotal, $discount, $shipping, $promoCode, $customer) {
+        return DB::transaction(function () use ($lines, $subtotal, $shipping, $promoCodeId, $customer) {
+            $promoCode = $promoCodeId ? PromoCode::lockForUpdate()->find($promoCodeId) : null;
+            if ($promoCode && (! $promoCode->isCurrentlyValid()
+                || ($promoCode->min_order_amount && $subtotal < (float) $promoCode->min_order_amount))) {
+                $promoCode = null;
+            }
+            $discount = $promoCode
+                ? $this->promoCodeService->calculateDiscount($promoCode, $subtotal)
+                : 0.0;
+
             foreach ($lines as $line) {
                 $this->stock->decrement($line->variant->id, $line->qty);
             }

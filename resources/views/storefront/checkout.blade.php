@@ -62,7 +62,7 @@
     </form>
 </div>
 
-<script>
+<script nonce="{{ $cspNonce }}">
 if (typeof fbq === 'function') {
     fbq('track', 'InitiateCheckout', @json($checkoutPayload), {eventID: '{{ $eventId }}'});
 }

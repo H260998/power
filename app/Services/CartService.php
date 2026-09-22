@@ -2,14 +2,15 @@
 
 namespace App\Services;
 
-use App\Models\PromoCode;
 use App\Models\ProductVariant;
+use App\Models\PromoCode;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 
 class CartService
 {
     private const SESSION_KEY = 'cart';
+
     private const PROMO_SESSION_KEY = 'cart_promo_code';
 
     public function add(int $variantId, int $qty = 1): void
@@ -120,7 +121,14 @@ class CartService
     {
         $promo = $this->promoCode();
 
-        return $promo ? $promoCodeService->calculateDiscount($promo, $this->subtotal()) : 0.0;
+        $subtotal = $this->subtotal();
+
+        if (! $promo || ! $promo->isCurrentlyValid()
+            || ($promo->min_order_amount && $subtotal < (float) $promo->min_order_amount)) {
+            return 0.0;
+        }
+
+        return $promoCodeService->calculateDiscount($promo, $subtotal);
     }
 
     public function shippingFee(SettingsService $settings): float

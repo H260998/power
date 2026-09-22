@@ -43,20 +43,20 @@
             <div class="w-full lg:w-[340px] shrink-0 bg-cream rounded-3xl p-7">
                 <div class="text-[17px] font-extrabold mb-5">{{ __('storefront.order_summary') }}</div>
 
-                <form method="POST" action="{{ route('cart.promo.apply') }}" class="flex gap-2.5 mb-5">
-                    @csrf
-                    @if ($promoCode)
+                @if ($promoCode)
+                    <form method="POST" action="{{ route('cart.promo.remove') }}" class="flex gap-2.5 mb-5">
+                        @csrf @method('DELETE')
                         <div class="flex-1 flex items-center justify-between bg-white rounded-xl px-3.5 py-2.5 text-[13.5px] font-bold">
                             {{ $promoCode->code }}
-                            <a href="{{ route('cart.promo.remove') }}" onclick="event.preventDefault(); document.getElementById('remove-promo-form').submit();" class="text-[#DC2626] text-xs">✕</a>
+                            <button type="submit" class="text-[#DC2626] text-xs" aria-label="{{ __('admin.delete') }}">✕</button>
                         </div>
-                    @else
+                    </form>
+                @else
+                    <form method="POST" action="{{ route('cart.promo.apply') }}" class="flex gap-2.5 mb-5">
+                        @csrf
                         <input type="text" name="code" placeholder="{{ __('storefront.promo_placeholder') }}" class="flex-1 border-0 rounded-[10px] px-3.5 py-3 text-[13.5px]">
                         <button type="submit" class="bg-ink text-white px-4 py-3 rounded-[10px] text-[13px] font-bold">{{ __('storefront.apply') }}</button>
-                    @endif
-                </form>
-                @if ($promoCode)
-                    <form id="remove-promo-form" method="POST" action="{{ route('cart.promo.remove') }}" class="hidden">@csrf @method('DELETE')</form>
+                    </form>
                 @endif
 
                 <div class="flex justify-between text-sm mb-2.5"><span>{{ __('storefront.subtotal') }}</span><span>{{ number_format($subtotal, 3) }} {{ __('storefront.currency') }}</span></div>

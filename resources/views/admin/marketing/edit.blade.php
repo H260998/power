@@ -20,7 +20,13 @@
         </div>
         <div class="mb-7">
             <label class="block text-[13px] font-bold mb-1.5">{{ __('admin.marketing_capi_token') }}</label>
-            <input type="password" name="conversion_api_token" value="{{ old('conversion_api_token', $conversionApiToken) }}" placeholder="EAAG..." class="w-full border border-border rounded-xl px-4 py-3 text-sm">
+            <input type="password" name="conversion_api_token" value="" autocomplete="new-password" placeholder="{{ $conversionApiConfigured ? __('admin.marketing_token_configured') : 'EAAG...' }}" class="w-full border border-border rounded-xl px-4 py-3 text-sm">
+            @if ($conversionApiConfigured)
+                <label class="mt-2 flex items-center gap-2 text-[12.5px] text-muted">
+                    <input type="checkbox" name="clear_conversion_api_token" value="1">
+                    {{ __('admin.marketing_clear_token') }}
+                </label>
+            @endif
         </div>
 
         <button type="submit" class="bg-ink text-white px-7 py-3.5 rounded-full text-sm font-bold">{{ __('admin.save') }}</button>

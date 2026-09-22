@@ -66,6 +66,8 @@ class CheckoutController extends Controller
 
         $order->update(['meta' => ['purchase_event_id' => $eventId]]);
 
+        $request->session()->put('confirmed_orders.'.$order->order_number, true);
+
         return redirect()->route('order.confirmation', $order->order_number);
     }
 }

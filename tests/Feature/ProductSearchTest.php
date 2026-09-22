@@ -28,6 +28,10 @@ class ProductSearchTest extends TestCase
             $this->assertSame([$product->id], Product::active()->searchName($term)->pluck('id')->all());
         }
         $this->assertSame([$product->id], Product::active()->searchName('Blue')->pluck('id')->all());
-        $this->get('/boutique?q=Blue')->assertOk()->assertSee('Blue Sneaker')->assertDontSee('Blue Hidden');
+        $this->withSession(['locale' => 'en'])
+            ->get('/boutique?q=Blue')
+            ->assertOk()
+            ->assertSee('Blue Sneaker')
+            ->assertDontSee('Blue Hidden');
     }
 }

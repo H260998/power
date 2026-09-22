@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -33,6 +34,10 @@ class AdminLoginRequest extends FormRequest
 
         if (! Auth::guard('admin')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
+            Log::warning('Failed administrator login.', [
+                'email_hash' => substr(hash('sha256', Str::lower((string) $this->input('email'))), 0, 16),
+                'ip' => $this->ip(),
+            ]);
 
             throw ValidationException::withMessages([
                 'email' => __('admin.login_failed'),
@@ -49,6 +54,11 @@ class AdminLoginRequest extends FormRequest
         }
 
         event(new Lockout($this));
+
+        Log::warning('Administrator login rate limit reached.', [
+            'email_hash' => substr(hash('sha256', Str::lower((string) $this->input('email'))), 0, 16),
+            'ip' => $this->ip(),
+        ]);
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
 

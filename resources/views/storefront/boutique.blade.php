@@ -79,7 +79,7 @@
                     @foreach (request()->except(['sort','page']) as $key => $value)
                         <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                     @endforeach
-                    <select name="sort" onchange="this.form.submit()" class="border border-border rounded-full px-4 py-2.5 text-[13.5px] font-semibold text-gray-700 bg-white">
+                    <select name="sort" data-submit-on-change class="border border-border rounded-full px-4 py-2.5 text-[13.5px] font-semibold text-gray-700 bg-white">
                         <option value="" @selected(!request('sort'))>{{ __('storefront.sort_featured') }}</option>
                         <option value="newest" @selected(request('sort')==='newest')>{{ __('storefront.sort_newest') }}</option>
                         <option value="price_asc" @selected(request('sort')==='price_asc')>{{ __('storefront.sort_price_asc') }}</option>
@@ -132,7 +132,7 @@
     }
 </style>
 
-<script>
+<script nonce="{{ $cspNonce }}">
 (() => {
     const range = document.getElementById('price-range');
     const minimum = document.getElementById('price-min');

@@ -103,5 +103,5 @@
     </form>
 </div>
 
-<script type="application/json" id="podium-slides">@json($heroSlides)</script>
+<script type="application/json" id="podium-slides" nonce="{{ $cspNonce }}">@json($heroSlides)</script>
 @endsection

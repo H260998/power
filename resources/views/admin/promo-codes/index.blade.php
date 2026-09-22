@@ -36,7 +36,7 @@
                         <button type="submit" class="hover:text-gold">{{ $promo->is_active ? __('admin.disable') : __('admin.activate') }}</button>
                     </form>
                     <a href="{{ route('admin.promo-codes.edit', $promo) }}" class="hover:text-gold">{{ __('admin.edit') }}</a>
-                    <form method="POST" action="{{ route('admin.promo-codes.destroy', $promo) }}" onsubmit="return confirm('{{ __('admin.confirm_delete') }}')">
+                    <form method="POST" action="{{ route('admin.promo-codes.destroy', $promo) }}" data-confirm="{{ __('admin.confirm_delete') }}">
                         @csrf @method('DELETE')
                         <button type="submit" class="text-[#DC2626] hover:opacity-70">{{ __('admin.delete') }}</button>
                     </form>

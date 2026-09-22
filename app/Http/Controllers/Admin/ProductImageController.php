@@ -8,6 +8,7 @@ use App\Models\ProductImage;
 use App\Services\ImageUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProductImageController extends Controller
 {
@@ -18,7 +19,11 @@ class ProductImageController extends Controller
         abort_unless($image->product_id === $product->id, 404);
 
         $request->validate([
-            'product_color_id' => ['nullable', 'integer', 'exists:product_colors,id'],
+            'product_color_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('product_colors', 'id')->where('product_id', $product->id),
+            ],
         ]);
 
         if ($request->boolean('make_primary')) {

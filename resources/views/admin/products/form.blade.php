@@ -135,7 +135,7 @@
                         <div class="aspect-square bg-cream rounded-lg bg-center bg-contain bg-no-repeat mb-2" style="background-image:url('{{ $image->url() }}')"></div>
                         <form method="POST" action="{{ route('admin.products.images.update', [$product, $image]) }}" class="mb-1.5">
                             @csrf @method('PATCH')
-                            <select name="product_color_id" onchange="this.form.submit()" class="w-full text-[11.5px] border border-border rounded-lg px-2 py-1.5 mb-1.5">
+                            <select name="product_color_id" data-submit-on-change class="w-full text-[11.5px] border border-border rounded-lg px-2 py-1.5 mb-1.5">
                                 <option value="">{{ __('admin.no_color') }}</option>
                                 @foreach ($product->colors as $color)
                                     <option value="{{ $color->id }}" @selected($image->product_color_id === $color->id)>{{ $color->name }}</option>
@@ -152,7 +152,7 @@
                                     <button type="submit" class="text-[10.5px] font-semibold text-muted hover:text-ink">{{ __('admin.make_primary') }}</button>
                                 </form>
                             @endif
-                            <form method="POST" action="{{ route('admin.products.images.destroy', [$product, $image]) }}" onsubmit="return confirm('{{ __('admin.confirm_delete') }}')">
+                            <form method="POST" action="{{ route('admin.products.images.destroy', [$product, $image]) }}" data-confirm="{{ __('admin.confirm_delete') }}">
                                 @csrf @method('DELETE')
                                 <button type="submit" class="text-[10.5px] font-semibold text-[#DC2626]">{{ __('admin.delete') }}</button>
                             </form>

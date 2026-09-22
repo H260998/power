@@ -32,7 +32,7 @@
                 </div>
                 <div class="flex gap-4 justify-end text-sm font-semibold">
                     <a href="{{ route('admin.categories.edit', $category) }}" class="hover:text-gold">{{ __('admin.edit') }}</a>
-                    <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" onsubmit="return confirm('{{ __('admin.confirm_delete') }}')">
+                    <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" data-confirm="{{ __('admin.confirm_delete') }}">
                         @csrf @method('DELETE')
                         <button type="submit" class="text-[#DC2626] hover:opacity-70">{{ __('admin.delete') }}</button>
                     </form>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="flex gap-4 justify-end text-sm font-semibold">
                         <a href="{{ route('admin.categories.edit', $child) }}" class="hover:text-gold">{{ __('admin.edit') }}</a>
-                        <form method="POST" action="{{ route('admin.categories.destroy', $child) }}" onsubmit="return confirm('{{ __('admin.confirm_delete') }}')">
+                        <form method="POST" action="{{ route('admin.categories.destroy', $child) }}" data-confirm="{{ __('admin.confirm_delete') }}">
                             @csrf @method('DELETE')
                             <button type="submit" class="text-[#DC2626] hover:opacity-70">{{ __('admin.delete') }}</button>
                         </form>

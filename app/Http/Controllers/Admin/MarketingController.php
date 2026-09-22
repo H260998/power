@@ -15,7 +15,7 @@ class MarketingController extends Controller
     {
         return view('admin.marketing.edit', [
             'metaPixelId' => $settings->get('meta_pixel_id'),
-            'conversionApiToken' => $settings->get('conversion_api_token'),
+            'conversionApiConfigured' => filled($settings->get('conversion_api_token')),
             'recentEvents' => TrackingEvent::latest()->take(20)->get(),
             'eventCounts' => TrackingEvent::selectRaw('event_name, count(*) as total')
                 ->groupBy('event_name')
@@ -26,14 +26,20 @@ class MarketingController extends Controller
     public function update(Request $request, SettingsService $settings): RedirectResponse
     {
         $request->validate([
-            'meta_pixel_id' => ['nullable', 'string', 'max:50'],
+            'meta_pixel_id' => ['nullable', 'regex:/\A[0-9]{5,30}\z/'],
             'conversion_api_token' => ['nullable', 'string', 'max:500'],
+            'clear_conversion_api_token' => ['nullable', 'boolean'],
         ]);
 
-        $settings->setMany([
-            'meta_pixel_id' => $request->input('meta_pixel_id'),
-            'conversion_api_token' => $request->input('conversion_api_token'),
-        ]);
+        $values = ['meta_pixel_id' => $request->input('meta_pixel_id')];
+
+        if ($request->boolean('clear_conversion_api_token')) {
+            $values['conversion_api_token'] = null;
+        } elseif ($request->filled('conversion_api_token')) {
+            $values['conversion_api_token'] = $request->input('conversion_api_token');
+        }
+
+        $settings->setMany($values);
 
         return back()->with('status', __('admin.marketing_updated'));
     }

@@ -17,8 +17,8 @@ class OrderTrackingController extends Controller
     public function lookup(Request $request): View
     {
         $request->validate([
-            'order_number' => ['required', 'string'],
-            'phone' => ['required', 'string'],
+            'order_number' => ['required', 'string', 'regex:/\APWR-[0-9]{6}\z/'],
+            'phone' => ['required', 'string', 'regex:/\A[234579][0-9]{7}\z/'],
         ]);
 
         $order = Order::with('items')

@@ -176,7 +176,7 @@ return [
     'settings_new_password' => 'كلمة المرور الجديدة',
     'settings_change_password_button' => 'تغيير كلمة المرور',
     'settings_password_changed' => 'تم تغيير كلمة المرور بنجاح.',
-    'settings_password_requirements' => 'ثمانية أحرف على الأقل، تتضمن حرفًا واحدًا ورقمًا واحدًا.',
+    'settings_password_requirements' => '12 حرفًا على الأقل، مع أحرف كبيرة وصغيرة ورقم.',
 
     // Orders
     'delivery_note' => 'وصل تسليم',
@@ -214,6 +214,8 @@ return [
     'marketing_meta_help' => 'أدخل معرّف بكسل ميتا ورمز واجهة برمجة تطبيقات التحويلات لتفعيل تتبع الأحداث.',
     'marketing_pixel_id' => 'معرّف بكسل ميتا',
     'marketing_capi_token' => 'رمز واجهة برمجة تطبيقات التحويلات',
+    'marketing_token_configured' => 'تم إعداد الرمز — اتركه فارغًا للاحتفاظ به',
+    'marketing_clear_token' => 'حذف الرمز المحفوظ',
     'marketing_events_summary' => 'ملخص الأحداث',
     'marketing_recent_events' => 'الأحداث الأخيرة',
     'marketing_event' => 'الحدث',

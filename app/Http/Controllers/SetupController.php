@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
@@ -37,7 +38,7 @@ class SetupController extends Controller
             'setup_token' => ['required', 'string'],
             'admin_name' => ['required', 'string', 'max:255'],
             'admin_email' => ['required', 'email', 'max:255'],
-            'admin_password' => ['required', 'confirmed', Password::min(12)->letters()->numbers()],
+            'admin_password' => ['required', 'confirmed', Password::min(12)->mixedCase()->numbers()],
         ], [], [
             'setup_token' => __('setup.token'),
             'admin_name' => __('setup.admin_name'),
@@ -56,6 +57,8 @@ class SetupController extends Controller
         }
 
         if (! hash_equals($configuredToken, (string) $request->input('setup_token'))) {
+            Log::warning('Invalid setup token submitted.', ['ip' => $request->ip()]);
+
             return $this->render([__('setup.token_invalid')], $values, status: 403);
         }
 
@@ -85,10 +88,15 @@ class SetupController extends Controller
                 ]);
             }
 
-            Admin::create([
+            $admin = Admin::create([
                 'name' => $values['admin_name'],
                 'email' => $values['admin_email'],
                 'password' => (string) $request->input('admin_password'),
+            ]);
+
+            Log::notice('Application setup completed.', [
+                'admin_id' => $admin->id,
+                'ip' => $request->ip(),
             ]);
         } catch (Throwable $exception) {
             report($exception);

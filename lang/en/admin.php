@@ -176,7 +176,7 @@ return [
     'settings_new_password' => 'New password',
     'settings_change_password_button' => 'Change password',
     'settings_password_changed' => 'Your password has been changed successfully.',
-    'settings_password_requirements' => 'At least 8 characters, including one letter and one number.',
+    'settings_password_requirements' => 'At least 12 characters, including uppercase, lowercase and a number.',
 
     // Orders
     'delivery_note' => 'Delivery note',
@@ -214,6 +214,8 @@ return [
     'marketing_meta_help' => 'Enter your Meta Pixel ID and Conversion API access token to enable ViewContent, AddToCart, InitiateCheckout and Purchase tracking.',
     'marketing_pixel_id' => 'Meta Pixel ID',
     'marketing_capi_token' => 'Conversion API access token',
+    'marketing_token_configured' => 'Token configured — leave blank to keep it',
+    'marketing_clear_token' => 'Delete the saved token',
     'marketing_events_summary' => 'Events summary',
     'marketing_recent_events' => 'Recent events',
     'marketing_event' => 'Event',

@@ -16,7 +16,7 @@ class ProductVariantController extends Controller
     {
         $request->validate([
             'stock' => ['required', 'array'],
-            'stock.*' => ['required', 'integer', 'min:0'],
+            'stock.*' => ['required', 'integer', 'min:0', 'max:1000000'],
         ]);
 
         $variantIds = $product->variants()->pluck('id')->all();

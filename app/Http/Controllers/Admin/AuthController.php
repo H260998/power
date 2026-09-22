@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -23,15 +24,26 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
+        Log::notice('Administrator logged in.', [
+            'admin_id' => $request->user('admin')->id,
+            'ip' => $request->ip(),
+        ]);
+
         return redirect()->intended(route('admin.dashboard'));
     }
 
     public function logout(Request $request): RedirectResponse
     {
+        $adminId = $request->user('admin')?->id;
         Auth::guard('admin')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        Log::notice('Administrator logged out.', [
+            'admin_id' => $adminId,
+            'ip' => $request->ip(),
+        ]);
 
         return redirect()->route('admin.login');
     }

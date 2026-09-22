@@ -163,7 +163,7 @@ return [
     'settings_newsletter_title' => 'Titre newsletter',
     'settings_newsletter_text' => 'Texte newsletter',
     'settings_admin_accounts' => 'Comptes administrateurs',
-    'settings_admin_accounts_help' => "Ajoutez les personnes autorisées à gérer la boutique et sécurisez votre propre compte.",
+    'settings_admin_accounts_help' => 'Ajoutez les personnes autorisées à gérer la boutique et sécurisez votre propre compte.',
     'settings_existing_admins' => 'Administrateurs actuels',
     'settings_you' => 'Votre compte',
     'settings_add_admin' => 'Ajouter un administrateur',
@@ -176,7 +176,7 @@ return [
     'settings_new_password' => 'Nouveau mot de passe',
     'settings_change_password_button' => 'Modifier le mot de passe',
     'settings_password_changed' => 'Votre mot de passe a été modifié avec succès.',
-    'settings_password_requirements' => 'Minimum 8 caractères, avec au moins une lettre et un chiffre.',
+    'settings_password_requirements' => 'Minimum 12 caractères, avec majuscule, minuscule et chiffre.',
 
     // Orders
     'delivery_note' => 'Bon de livraison',
@@ -214,6 +214,8 @@ return [
     'marketing_meta_help' => 'Renseignez votre ID de pixel Meta et votre jeton API de conversion pour activer le suivi ViewContent, AddToCart, InitiateCheckout et Purchase.',
     'marketing_pixel_id' => 'ID du Pixel Meta',
     'marketing_capi_token' => 'Jeton API de conversion',
+    'marketing_token_configured' => 'Jeton configuré — laissez vide pour le conserver',
+    'marketing_clear_token' => 'Supprimer le jeton enregistré',
     'marketing_events_summary' => 'Résumé des événements',
     'marketing_recent_events' => 'Événements récents',
     'marketing_event' => 'Événement',

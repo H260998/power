@@ -112,7 +112,7 @@
         'stock' => $v->stock_quantity,
     ]);
 @endphp
-<script>
+<script nonce="{{ $cspNonce }}">
 (function () {
     const variants = @json($variantsForJs);
     const sizes = document.querySelectorAll('.pdp-size-chip');

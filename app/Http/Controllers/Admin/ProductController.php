@@ -142,7 +142,14 @@ class ProductController extends Controller
             ->map(function ($c) {
                 [$name, $hex] = array_pad(explode(':', $c, 2), 2, null);
 
-                return ['name' => trim($name), 'hex_code' => $hex ? trim($hex) : null];
+                $hex = $hex ? trim($hex) : null;
+
+                return [
+                    'name' => trim($name),
+                    'hex_code' => $hex && preg_match('/\A#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\z/', $hex)
+                        ? $hex
+                        : null,
+                ];
             })
             ->values()
             ->all();

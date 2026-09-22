@@ -41,7 +41,7 @@
                 </div>
                 <div class="flex gap-4 justify-end text-sm font-semibold">
                     <a href="{{ route('admin.products.edit', $product) }}" class="hover:text-gold">{{ __('admin.edit') }}</a>
-                    <form method="POST" action="{{ route('admin.products.destroy', $product) }}" onsubmit="return confirm('{{ __('admin.confirm_delete') }}')">
+                    <form method="POST" action="{{ route('admin.products.destroy', $product) }}" data-confirm="{{ __('admin.confirm_delete') }}">
                         @csrf @method('DELETE')
                         <button type="submit" class="text-[#DC2626] hover:opacity-70">{{ __('admin.delete') }}</button>
                     </form>

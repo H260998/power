@@ -9,7 +9,7 @@
     <form method="GET" class="flex flex-wrap gap-3 mb-5">
         <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('admin.search_orders') }}"
                class="flex-1 min-w-[200px] border border-border rounded-full px-5 py-2.5 text-sm">
-        <select name="status" onchange="this.form.submit()" class="border border-border rounded-full px-4 py-2.5 text-sm bg-white">
+        <select name="status" data-submit-on-change class="border border-border rounded-full px-4 py-2.5 text-sm bg-white">
             <option value="">{{ __('admin.all_statuses') }}</option>
             @foreach ($statuses as $status)
                 <option value="{{ $status->value }}" @selected(request('status') === $status->value)>{{ $status->label() }}</option>

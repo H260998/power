@@ -17,7 +17,7 @@ class ProductColorController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:100'],
-            'hex_code' => ['nullable', 'string', 'max:9'],
+            'hex_code' => ['nullable', 'regex:/\A#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\z/'],
         ]);
 
         $nextOrder = (int) $product->colors()->max('sort_order') + 1;

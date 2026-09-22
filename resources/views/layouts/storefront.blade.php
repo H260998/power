@@ -13,7 +13,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @if ($metaPixelId)
-        <script>
+        <script nonce="{{ $cspNonce }}">
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -22,14 +22,14 @@
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window,document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '{{ $metaPixelId }}');
+            fbq('init', @js($metaPixelId));
             fbq('track', 'PageView');
             @if (session('pixel_event'))
                 @php $pe = session('pixel_event'); @endphp
-                fbq('track', '{{ $pe['name'] }}', @json($pe['payload']), {eventID: '{{ $pe['id'] }}'});
+                fbq('track', @js($pe['name']), @json($pe['payload']), {eventID: @js($pe['id'])});
             @endif
         </script>
-        <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ $metaPixelId }}&ev=PageView&noscript=1" /></noscript>
+        <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ rawurlencode($metaPixelId) }}&ev=PageView&noscript=1" alt="" /></noscript>
     @endif
 </head>
 <body class="bg-white text-ink font-sans antialiased min-h-screen flex flex-col overflow-x-hidden">

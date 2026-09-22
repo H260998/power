@@ -58,7 +58,7 @@
 <body>
     <nav class="toolbar">
         <a href="{{ route('admin.orders.show', $order) }}">{{ __('admin.back_to_order') }}</a>
-        <button type="button" onclick="window.print()">{{ __('admin.print_or_save_pdf') }}</button>
+        <button type="button" data-print>{{ __('admin.print_or_save_pdf') }}</button>
     </nav>
     <main class="sheet">
         <header class="heading">

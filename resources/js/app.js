@@ -26,6 +26,20 @@ function paintWishlistButtons() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-submit-on-change]').forEach((element) => {
+        element.addEventListener('change', () => element.form?.requestSubmit());
+    });
+
+    document.querySelectorAll('form[data-confirm]').forEach((form) => {
+        form.addEventListener('submit', (event) => {
+            if (!window.confirm(form.dataset.confirm)) event.preventDefault();
+        });
+    });
+
+    document.querySelectorAll('[data-print]').forEach((button) => {
+        button.addEventListener('click', () => window.print());
+    });
+
     initPodium();
     const toggle = document.querySelector('[data-search-toggle]');
     const panel = document.querySelector('[data-search-panel]');

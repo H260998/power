@@ -60,8 +60,10 @@ their own database and storage instead of modifying production data:
 | `DB_SSLMODE` | `require` |
 | `SESSION_DRIVER`, `CACHE_STORE` | `database` |
 | `SESSION_SECURE_COOKIE`, `SESSION_ENCRYPT` | `true` |
+| `SESSION_COOKIE` | `__Host-alo-session` |
 | `QUEUE_CONNECTION` | `sync` |
 | `LOG_CHANNEL` | `stderr` |
+| `LOG_LEVEL` | `info` |
 | `UPLOADS_DRIVER` | `vercel-blob` |
 | `BLOB_READ_WRITE_TOKEN` | Supplied by the connected public Blob store; sensitive |
 | `MAIL_MAILER` | `log`, until an SMTP provider is configured |

@@ -25,17 +25,17 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('/buy-now', [CartController::class, 'buyNow'])->name('buyNow');
     Route::patch('/{variantId}', [CartController::class, 'update'])->whereNumber('variantId')->name('update');
     Route::delete('/{variantId}', [CartController::class, 'remove'])->whereNumber('variantId')->name('remove');
-    Route::post('/promo', [CartController::class, 'applyPromo'])->name('promo.apply');
+    Route::post('/promo', [CartController::class, 'applyPromo'])->middleware('throttle:cart-promo')->name('promo.apply');
     Route::delete('/promo', [CartController::class, 'removePromo'])->name('promo.remove');
 });
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::post('/checkout', [CheckoutController::class, 'store'])->middleware('throttle:checkout')->name('checkout.store');
 
 Route::get('/order/confirmation/{orderNumber}', [OrderConfirmationController::class, 'show'])->name('order.confirmation');
 
 Route::get('/order/track', [OrderTrackingController::class, 'index'])->name('order.track');
-Route::post('/order/track', [OrderTrackingController::class, 'lookup'])->name('order.track.lookup');
+Route::post('/order/track', [OrderTrackingController::class, 'lookup'])->middleware('throttle:order-tracking')->name('order.track.lookup');
 
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 

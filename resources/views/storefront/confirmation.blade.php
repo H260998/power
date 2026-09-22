@@ -25,7 +25,7 @@
 </div>
 
 @if ($purchaseEventId)
-    <script>
+    <script nonce="{{ $cspNonce }}">
     if (typeof fbq === 'function') {
         fbq('track', 'Purchase', @json($purchasePayload), {eventID: '{{ $purchaseEventId }}'});
     }

@@ -11,7 +11,16 @@ class WishlistController extends Controller
 {
     public function products(Request $request): JsonResponse
     {
-        $ids = array_filter(array_map('intval', explode(',', (string) $request->query('ids', ''))));
+        $request->validate([
+            'ids' => ['nullable', 'string', 'max:500', 'regex:/\A[0-9,]*\z/'],
+        ]);
+
+        $ids = collect(explode(',', (string) $request->query('ids', '')))
+            ->map(fn (string $id) => (int) $id)
+            ->filter(fn (int $id) => $id > 0)
+            ->unique()
+            ->take(50)
+            ->all();
 
         $products = Product::with(['category', 'images', 'variants'])
             ->active()

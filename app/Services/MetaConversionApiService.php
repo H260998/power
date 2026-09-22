@@ -50,7 +50,7 @@ class MetaConversionApiService
         }
 
         try {
-            Http::asJson()->timeout(3)->post("https://graph.facebook.com/v21.0/{$pixelId}/events", [
+            Http::asJson()->connectTimeout(2)->timeout(4)->post("https://graph.facebook.com/v21.0/{$pixelId}/events", [
                 'data' => [[
                     'event_name' => $event->value,
                     'event_time' => now()->timestamp,
@@ -66,9 +66,11 @@ class MetaConversionApiService
                     'custom_data' => $payload,
                 ]],
                 'access_token' => $token,
-            ]);
+            ])->throw();
         } catch (\Throwable $e) {
-            Log::warning('Meta Conversion API request failed: '.$e->getMessage());
+            Log::warning('Meta Conversion API request failed.', [
+                'exception' => $e::class,
+            ]);
         }
     }
 }

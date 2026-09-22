@@ -38,7 +38,7 @@ class CartController extends Controller
     {
         $request->validate([
             'variant_id' => ['required', 'integer', 'exists:product_variants,id'],
-            'qty' => ['nullable', 'integer', 'min:1'],
+            'qty' => ['nullable', 'integer', 'min:1', 'max:100'],
         ]);
 
         $qty = $request->integer('qty', 1);
@@ -52,7 +52,7 @@ class CartController extends Controller
     {
         $request->validate([
             'variant_id' => ['required', 'integer', 'exists:product_variants,id'],
-            'qty' => ['nullable', 'integer', 'min:1'],
+            'qty' => ['nullable', 'integer', 'min:1', 'max:100'],
         ]);
 
         $qty = $request->integer('qty', 1);
@@ -64,7 +64,7 @@ class CartController extends Controller
 
     public function update(Request $request, int $variantId): RedirectResponse
     {
-        $request->validate(['qty' => ['required', 'integer', 'min:1']]);
+        $request->validate(['qty' => ['required', 'integer', 'min:1', 'max:100']]);
 
         $this->cart->update($variantId, $request->integer('qty'));
 
