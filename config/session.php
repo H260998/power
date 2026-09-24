@@ -129,7 +129,9 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        Str::slug((string) env('APP_NAME', 'laravel')).'-session'
+        env('APP_ENV') === 'production'
+            ? '__Host-alo-session'
+            : Str::slug((string) env('APP_NAME', 'laravel')).'-session'
     ),
 
     /*

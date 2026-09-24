@@ -36,3 +36,4 @@ Thumbs.db
 !.env.example
 .agents/
 skills-lock.json
+/test-results
