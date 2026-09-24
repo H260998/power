@@ -47,7 +47,9 @@ return [
     |
     */
 
-    'encrypt' => env('SESSION_ENCRYPT', true),
+    'encrypt' => env('APP_ENV') === 'production'
+        ? true
+        : env('SESSION_ENCRYPT', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -145,7 +147,9 @@ return [
     |
     */
 
-    'path' => env('SESSION_PATH', '/'),
+    'path' => env('APP_ENV') === 'production'
+        ? '/'
+        : env('SESSION_PATH', '/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -158,7 +162,9 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN'),
+    'domain' => env('APP_ENV') === 'production'
+        ? null
+        : env('SESSION_DOMAIN'),
 
     /*
     |--------------------------------------------------------------------------
@@ -171,7 +177,9 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE'),
+    'secure' => env('APP_ENV') === 'production'
+        ? true
+        : env('SESSION_SECURE_COOKIE'),
 
     /*
     |--------------------------------------------------------------------------
